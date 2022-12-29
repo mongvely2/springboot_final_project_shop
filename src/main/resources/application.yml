@@ -1,0 +1,36 @@
+# server port 번호 설정
+server:
+  port: 8082
+
+# data base 연동 설정
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_springboot_final?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: user_boot_kmy
+    password: 1234
+
+  # thymeleaf 캐시 설정
+  thymeleaf:
+    cache: false
+
+  # spring data jpa 설정
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+#      spring.jpa.hibernate.ddl-auto=create  => yml이 아닌 properties 확장자에서 사용하는 방법
+#      ddl-auto: create => 실행마다 table drop 하는 태그
+#      ddl-auto: update => 기존 테이블 유지
+
+# db query log 관련 설정
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: trace
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
