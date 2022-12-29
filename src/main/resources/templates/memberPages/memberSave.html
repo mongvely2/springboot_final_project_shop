@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>memberSave</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <!--    Axios cdn_아래 코드    -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        #write-form {
+            width: 800px;
+            margin-top: 50px;
+        }
+
+        #validation1, #validation2, #validation3, #validation4 {
+            margin-top: 5px;
+            font-size: small;
+        }
+
+        /*#main {*/
+        /*    margin-top: 30px;*/
+        /*    font-size: larger;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+<!--<div class="container" id="main">-->
+<!--    회원가입-->
+<!--</div>-->
+
+<p class="text-center fs-3 mt-5" >회원가입</p>
+
+<div class="container" id="write-form">
+    <form action="/member/save" method="post" name="saveForm">
+        <div class="form-floating mb-4">
+            <!--            <span class="input-group-text"></span>-->
+            <input type="text" name="memberEmail" id="memberEmail" placeholder="이메일입력" onblur="duplicateCheck()"
+                   class="form-control">
+            <label for="memberEmail">이메일 주소</label>
+            <div id="validation1">
+                <span id="duplicateEmail"></span>
+            </div>
+        </div>
+        <div class="form-floating mb-4">
+            <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호입력" onblur="savePassCheck()"
+                   class="form-control">
+            <label for="memberPassword">비밀번호</label>
+            <div id="validation2">
+            <span id="expPass"></span>
+            </div>
+        </div>
+        <div class="form-floating mb-4">
+            <input type="text" name="memberName" id="memberName" placeholder="이름입력" onblur="nameCheck()"
+                   class="form-control">
+            <label for="memberName">이름</label>
+            <div id="validation3">
+            <span id="nameBox"></span>
+            </div>
+        </div>
+        <div class="form-floating mb-4">
+            <input type="text" name="memberMobile" id="memberMobile" placeholder="핸드폰번호입력" onblur="mobileCheck()"
+                   class="form-control">
+            <label for="memberMobile">핸드폰번호</label>
+            <div id="validation4">
+            <span id="expMobile"></span>
+            </div>
+        </div>
+        <div class="d-grid gap-2 col-5 mx-auto">
+        <input type="button" value="가입하기" onclick="memberSaveBt()" class="btn btn-primary">
+        </div>
+        <a href="/" class="btn btn-primary">홈이동</a>
+    </form>
+</div>
+
+</body>
+<script th:inline="javascript">
+
+    let emailResult = false;
+    const passExp = /^(?=.*[a-z])(?=.*[\d])[a-z\d]{5,10}$/;
+    const mobileExp = /^\d{3}-\d{4}-\d{4}$/;
+
+
+    const memberSaveBt = () => {
+
+        const emailCheck = document.getElementById("memberEmail").value;
+        const passCheck = document.getElementById("memberPassword").value;
+        const nameCheck = document.getElementById("memberName").value;
+        const mobileCheck = document.getElementById("memberMobile").value;
+
+        if (document.saveForm.memberEmail.value == "") {
+            alert("이메일을 입력하세요!")
+            return false;
+        }
+        // if (duplicateCheck().catch) {
+        if (emailResult == false) {
+            alert("이미 사용중인 이메일 입니다!")
+            return false;
+        }
+        if (document.saveForm.memberPassword.value == "") {
+            alert("비밀번호를 입력하세요!")
+            return false;
+        }
+        if (!passCheck.match(passExp)) {
+            alert("영문 소문자(필수), 숫자(필수)를 포함하여 5~10 비밀번호를 생성해주세요!")
+            return false;
+        }
+        if (document.saveForm.memberName.value == "") {
+            alert("이름을 입력하세요")
+            return false;
+        }
+        if (document.saveForm.memberMobile.value == "") {
+            alert("연락처를 입력하세요")
+            return false;
+        }
+        if (!mobileCheck.match(mobileExp)) {
+            alert("'-'를 포함한 핸드폰 번호를 입력하세요! ex:010-1234-5678")
+            return false;
+        }
+        if (emailCheck.length > 0 &&
+            emailResult == true &&
+            passCheck.length > 0 &&
+            passCheck.match(passExp) &&
+            nameCheck.length > 0 &&
+            mobileCheck.length > 0 &&
+            mobileCheck.match(mobileExp)) {
+            document.saveForm.submit();
+            alert("회원이 되신걸 축하드립니다!")
+        } else {
+            alert("올바른 회원가입 정보를 입력하세요!")
+        }
+
+    }
+
+    const duplicateCheck = () => {
+        const email = document.getElementById("memberEmail").value;
+        const duplicateEmail = document.getElementById("duplicateEmail");
+        if (email == "") {
+            duplicateEmail.innerHTML = "이메일을 입력하세요!";
+            duplicateEmail.style.color = "red";
+        } else {
+            axios({
+                method: "post",
+                url: "/member/dup-check",
+                params: {
+                    inputEmail: email
+                }
+            }).then(res => {
+                duplicateEmail.innerHTML = "사용가능한 이메일 입니다!";
+                duplicateEmail.style.color = "green";
+                emailResult = true;
+            }).catch(res => {
+                duplicateEmail.innerHTML = "이미 사용중인 이메일 입니다!";
+                duplicateEmail.style.color = "red";
+            })
+
+        }
+    }
+
+
+    const savePassCheck = () => {
+        const inputPass = document.getElementById("memberPassword").value;
+        const expPass = document.getElementById("expPass");
+
+        if (!inputPass.match(passExp)) {
+            expPass.innerHTML = "영문 소문자(필수), 숫자(필수)를 포함하여 5~10 비밀번호를 생성해주세요!";
+            expPass.style.color = "red";
+            return false;
+        } else {
+            expPass.innerHTML = "사용가능합니다!";
+            expPass.style.color = "green";
+            return true;
+        }
+    }
+
+
+    const mobileCheck = () => {
+        const inputMobile = document.getElementById("memberMobile").value;
+        const expMobile = document.getElementById("expMobile");
+
+        if (!inputMobile.match(mobileExp)) {
+            expMobile.innerHTML = "'-'를 포함한 핸드폰 번호를 입력하세요! ex:010-1234-5678";
+            expMobile.style.color = "red";
+
+        } else {
+            expMobile.innerHTML = "사용가능합니다!";
+            expMobile.style.color = "green";
+
+        }
+    }
+
+    const nameCheck = () => {
+        const inputName = document.getElementById("memberName").value;
+        const nameBox = document.getElementById("nameBox");
+
+        if (inputName == "") {
+            nameBox.innerHTML = "이름을 입력하세요!";
+            nameBox.style.color = "red";
+        } else {
+            nameBox.innerHTML = "사용가능합니다!";
+            nameBox.style.color = "green";
+        }
+    }
+
+</script>
+</html>
