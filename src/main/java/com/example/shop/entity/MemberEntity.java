@@ -27,14 +27,17 @@ public class MemberEntity extends BaseEntity {
     @Column(length = 15)
     private String memberMobile;
 
-//    @Column(length = 10)
-//    private String memberPostcode;
-//
-//    @Column(length = 100)
-//    private String memberAddress;
-//
-//    @Column(length = 50)
-//    private String memberDetailAddress;
+    @Column(length = 10)
+    private String memberPostcode;
+
+    @Column(length = 100)
+    private String memberAddress;
+
+    @Column(length = 50)
+    private String memberDetailAddress;
+
+    @Column(length = 50)
+    private String memberReference;
 
     @Column
     private int memberRole;
@@ -45,6 +48,10 @@ public class MemberEntity extends BaseEntity {
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberMobile(memberDTO.getMemberMobile());
+        memberEntity.setMemberPostcode(memberDTO.getMemberPostcode());
+        memberEntity.setMemberAddress(memberDTO.getMemberAddress());
+        memberEntity.setMemberDetailAddress(memberDTO.getMemberDetailAddress());
+        memberEntity.setMemberReference(memberDTO.getMemberReference());
         if (memberDTO.getMemberEmail().equals("admin")) {
             memberEntity.setMemberRole(0);
         } else {

@@ -18,9 +18,10 @@ public class MemberDTO {
     private String memberPassword;
     private String memberName;
     private String memberMobile;
-//    private String memberPostcode;
-//    private String memberAddress;
-//    private String memberDetailAddress;
+    private String memberPostcode;
+    private String memberAddress;
+    private String memberDetailAddress;
+    private String memberReference;
     private int memberRole;
     private LocalDateTime memberCreatedTime;
     private LocalDateTime memberUpdatedTime;
@@ -32,6 +33,10 @@ public class MemberDTO {
         memberDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDTO.setMemberName(memberEntity.getMemberName());
         memberDTO.setMemberMobile(memberEntity.getMemberMobile());
+        memberDTO.setMemberPostcode(memberEntity.getMemberPostcode());
+        memberDTO.setMemberAddress(memberEntity.getMemberAddress());
+        memberDTO.setMemberDetailAddress(memberEntity.getMemberDetailAddress());
+        memberDTO.setMemberReference(memberEntity.getMemberReference());
         memberDTO.setMemberRole(memberEntity.getMemberRole());
         memberDTO.setMemberCreatedTime(memberEntity.getCreatedTime());
         memberDTO.setMemberUpdatedTime(memberEntity.getUpdatedTime());
