@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>memberSave</title>
+    <title>회원가입</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
     <script th:src="@{/js/jquery.js}"></script>
     <!--    Axios cdn_아래 코드    -->
@@ -30,7 +30,7 @@
 <!--    회원가입-->
 <!--</div>-->
 
-<p class="text-center fs-3 mt-5" >회원가입</p>
+<p class="text-center fs-3 mt-5">회원가입</p>
 
 <div class="container" id="write-form">
     <form action="/member/save" method="post" name="saveForm">
@@ -48,7 +48,7 @@
                    class="form-control">
             <label for="memberPassword">비밀번호</label>
             <div id="validation2">
-            <span id="expPass"></span>
+                <span id="expPass"></span>
             </div>
         </div>
         <div class="form-floating mb-4">
@@ -56,7 +56,7 @@
                    class="form-control">
             <label for="memberName">이름</label>
             <div id="validation3">
-            <span id="nameBox"></span>
+                <span id="nameBox"></span>
             </div>
         </div>
         <div class="form-floating mb-4">
@@ -64,11 +64,11 @@
                    class="form-control">
             <label for="memberMobile">핸드폰번호</label>
             <div id="validation4">
-            <span id="expMobile"></span>
+                <span id="expMobile"></span>
             </div>
         </div>
         <div class="d-grid gap-2 col-5 mx-auto">
-        <input type="button" value="가입하기" onclick="memberSaveBt()" class="btn btn-primary">
+            <input type="button" value="가입하기" onclick="memberSaveBt()" class="btn btn-primary">
         </div>
         <a href="/" class="btn btn-primary">홈이동</a>
     </form>

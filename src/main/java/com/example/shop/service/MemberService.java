@@ -29,4 +29,20 @@ public class MemberService {
         Long savedId = memberRepository.save(memberEntity).getId();
         return savedId;
     }
+
+    public MemberDTO login(MemberDTO memberDTO) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
+        if (optionalMemberEntity.isPresent()) {
+            MemberEntity memberEntity = optionalMemberEntity.get();
+            if (memberEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
+                MemberDTO result = MemberDTO.toDTO(memberEntity);
+                return result;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+    }
 }

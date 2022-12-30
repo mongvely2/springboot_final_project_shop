@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -33,13 +35,31 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute MemberDTO memberDTO, BindingResult bindingResult) {
+    public String save(@ModelAttribute MemberDTO memberDTO) {
         Long savedId = memberService.save(memberDTO);
         if (savedId > 0) {
-            return "index";
-//            return "memberPages/memberLogin";
+            return "memberPages/memberLogin";
         } else {
             return "memberPages/memberSave";
+        }
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "memberPages/memberLogin";
+    }
+
+    @PostMapping("/login")
+    public @ResponseBody String login(@ModelAttribute MemberDTO memberDTO,
+                        HttpSession session) {
+        System.out.println("memberDTO = " + memberDTO);
+        MemberDTO memberLogin = memberService.login(memberDTO);
+        session.setAttribute("loginSession", memberLogin);
+        System.out.println("memberLogin = " + memberLogin);
+        if (memberLogin != null) {
+            return "Y";
+        } else {
+            return "N";
         }
     }
 }

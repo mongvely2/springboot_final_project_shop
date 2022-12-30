@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+<!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>-->
+
+    <style>
+        #write-form {
+            width: 800px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+
+<p class="text-center fs-3 mt-5" >로그인 페이지</p>
+
+<div class="container" id="write-form">
+    <form action="/member/login" method="post">
+        <div class="form-floating mb-4">
+            <input type="text" name="memberEmail" id="memberEmail" placeholder="이메일 주소" class="form-control">
+            <label for="memberEmail">이메일 주소</label>
+        </div>
+        <div class="form-floating mb-4">
+            <input type="text" name="memberPassword" id="memberPassword" placeholder="비밀번호" class="form-control">
+            <label for="memberPassword">비밀번호</label>
+        </div>
+        <div class="d-grid gap-2 col-5 mx-auto">
+            <input type="button" value="로그인" onclick="loginBt()" class="btn btn-primary">
+        </div>
+        <a href="/" class="btn btn-primary">홈이동</a>
+    </form>
+</div>
+
+</body>
+<script th:inline="javascript">
+
+    const loginBt = () => {
+        const inputEmail = document.getElementById("memberEmail").value;
+        const inputPass = document.getElementById("memberPassword").value;
+        $.ajax({
+            type: "post",
+            url: "/member/login",
+            data: {
+                memberEmail: inputEmail,
+                memberPassword: inputPass
+            },
+            dataType: "text",
+            success: function (response) {
+                if (response == "Y") {
+                    alert("ㅇㅇ샵에 오신걸 환영합니다!")
+                    location.href = "/"
+                } else {
+                    alert("로그인 정보가 일치하지 않습니다!")
+                }
+
+            },
+            error: function () {
+                console.log("실패")
+            }
+        });
+    }
+</script>
+</html>
