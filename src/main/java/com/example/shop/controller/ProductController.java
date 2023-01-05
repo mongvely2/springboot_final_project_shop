@@ -31,11 +31,29 @@ public class ProductController {
 //        return new ResponseEntity<>(categoryDTOList, HttpStatus.OK);
 //    }
 
+//    @PostMapping("/category")
+//    public String categorySave(@ModelAttribute CategoryDTO categoryDTO,
+//                               Model model) {
+//        List<CategoryDTO> categoryDTOList = productService.categorySave(categoryDTO);
+//        model.addAttribute("categoryList", categoryDTOList);
+//        return "redirect: memberPages/adminPage";
+//    }
+
     @PostMapping("/category")
     public String categorySave(@ModelAttribute CategoryDTO categoryDTO,
                                Model model) {
-        List<CategoryDTO> categoryDTOList = productService.categorySave(categoryDTO);
+        productService.categorySave(categoryDTO);
+        List<CategoryDTO> categoryDTOList = productService.categoryList();
         model.addAttribute("categoryList", categoryDTOList);
+        System.out.println("categoryDTOList = " + categoryDTOList);
         return "redirect: memberPages/adminPage";
+    }
+
+    @GetMapping("/save")
+    public String saveForm(Model model) {
+        List<CategoryDTO> categoryList = productService.categoryList();
+        model.addAttribute("categoryList", categoryList);
+        System.out.println("categoryList = " + categoryList);
+        return "productPages/productSave";
     }
 }

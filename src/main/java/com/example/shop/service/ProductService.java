@@ -15,9 +15,22 @@ import java.util.List;
 public class ProductService {
     private final CategoryRepository categoryRepository;
 
-    public List<CategoryDTO> categorySave(CategoryDTO categoryDTO) {
+//    public List<CategoryDTO> categorySave(CategoryDTO categoryDTO) {
+//        CategoryEntity categoryEntity = CategoryEntity.toCategorySaveEntity(categoryDTO);
+//        categoryRepository.save(categoryEntity);
+//        List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
+//        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+//        for (CategoryEntity category : categoryEntityList) {
+//            categoryDTOList.add(CategoryDTO.toCategoryDTO(category));
+//        }
+//        return categoryDTOList;
+//    }
+    public void categorySave(CategoryDTO categoryDTO) {
         CategoryEntity categoryEntity = CategoryEntity.toCategorySaveEntity(categoryDTO);
         categoryRepository.save(categoryEntity);
+    }
+
+    public List<CategoryDTO> categoryList() {
         List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         for (CategoryEntity category : categoryEntityList) {
