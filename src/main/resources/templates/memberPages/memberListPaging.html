@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원목록</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <style>
+        #paging-list {
+            width: 800px;
+            margin-top: 50px;
+        }
+    </style>
+
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+
+<div class="container" id="paging-list">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">이메일</th>
+            <th scope="col">이름</th>
+            <th scope="col">핸드폰번호</th>
+            <th scope="col">우편번호</th>
+            <th scope="col">주소</th>
+            <th scope="col">상세주소</th>
+            <th scope="col">참고항목</th>
+            <th scope="col">회원/관리자 여부</th>
+            <th scope="col">회원가입일</th>
+            <th scope="col">회원정보 수정일</th>
+            <th scope="col">회원삭제(관리자권한)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member: ${memberList}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.memberEmail}"></td>
+            <td th:text="${member.memberName}"></td>
+            <td th:text="${member.memberMobile}"></td>
+            <td th:text="${member.memberPostcode}"></td>
+            <td th:text="${member.memberAddress}"></td>
+            <td th:text="${member.memberDetailAddress}"></td>
+            <td th:text="${member.memberReference}"></td>
+            <td th:text="${member.memberRole}"></td>
+            <td th:text="*{#temporals.format(member.memberCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="*{#temporals.format(member.memberUpdatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td><a href="/member/memberDelete" class="btn btn-warning">삭제</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="container">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <!--첫페이지 요청 링크  /board?page=1   -->
+                <a class="page-link" th:href="@{/member/memberList(page=1)}">   <!--보내고싶은 파라미터 값을 소괄호에(물음표 없음) 작성-->
+                    <!--                    사용자 3페이지 = number2 = /board?page=2  -> 요청한 값보다-1(배열처럼)  -->
+                    <span>First</span>
+                </a>
+            </li>
+
+            <li th:class="${memberList.first} ? 'disabled'" class="page-item">
+                <!--                 첫페이지면 #하고, 그게 아니면 @~로 이동하라  -> #: 그대로 있어라(이동하지마라)      -->
+                <!--boardList.first: isFirst()
+                    boardList.number: getNumber()-->
+                <a class="page-link" th:href="${memberList.first} ? '#' : @{/member/memberList(page=${memberList.number})}">
+                    <span><</span>
+                </a>
+            </li>
+
+            <!-- startPage ~ endPage 까지 숫자를 만들어주는 역할
+             for(int page=startPage; page<=endPage; page++
+             Thymeleaf에서 제공하는 sequence를 활용함(for문) -->
+            <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                th:class="${page == memberList.number + 1} ? 'page-item active'" class="page-item">
+                <!--            하단 페이지바에서 현재페이지는 다른색으로 보여지게끔 하는 부트스트랩 코드(위 코드)    -->
+                <a class="page-link" th:text="${page}" th:href="@{/member/memberList(page=${page})}"></a>
+            </li>
+
+            <!-- 다음 페이지 요청
+                현재 3페이지를 보고 있다면 다음 페이지는 4페이지임.
+                getNumber() 값은 2임.
+                따라서 4페이지를 보고 싶다면 getNumber()+2를 해야 컨트롤러에 4를 요청할 수 있음. -->
+
+            <li th:class="${memberList.last} ? 'disabled'"> <!-- disabled: bootstrap 제공 -->
+                <a class="page-link" th:href="${memberList.last} ? '#' : @{/member/memberList(page=${memberList.number + 2})}">
+                    <span>&gt;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <!-- .totalPages는 Page객체가 제공하는 total메서드 가져옴, test클래스 참고하면 됨 -->
+                <a class="page-link" th:href="@{/member/memberList(page=${memberList.totalPages})}">
+                    <span>Last</span>
+                </a>
+            </li>
+        </ul>
+        <div class="container">
+            <!--            <div th:if="${session.loginSession.memberEmail != null}">-->
+            <!--            </div>-->
+            <tr>
+<!--                <th th:if="${session.loginSession != null}">-->
+<!--                    <a href="/board/save" class="btn btn-primary">글작성</a>-->
+<!--                </th>-->
+                <th>
+                    <a href="/" class="btn btn-primary">홈으로 이동</a>
+                </th>
+            </tr>
+            <!--            <div th:if="${session.loginSession.memberEmail != null}">-->
+            <!--            <a href="/board/save" class="btn btn-primary">글작성</a>-->
+            <!--            <a href="/" class="btn btn-primary">홈으로 이동</a>-->
+            <!--            </div>-->
+            <!--            <div th:unless="${session.loginSession.memberEmail == null}">-->
+            <!--                <a href="/" class="btn btn-primary">홈으로 이동</a>-->
+            <!--            </div>-->
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

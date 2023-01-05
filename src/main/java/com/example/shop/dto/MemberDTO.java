@@ -26,6 +26,22 @@ public class MemberDTO {
     private LocalDateTime memberCreatedTime;
     private LocalDateTime memberUpdatedTime;
 
+    public MemberDTO(Long id, String memberEmail, String memberPassword, String memberName, String memberMobile, String memberPostcode, String memberAddress, String memberDetailAddress, String memberReference, int memberRole, LocalDateTime memberCreatedTime, LocalDateTime memberUpdatedTime) {
+        this.id = id;
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
+        this.memberName = memberName;
+        this.memberMobile = memberMobile;
+        this.memberPostcode = memberPostcode;
+        this.memberAddress = memberAddress;
+        this.memberDetailAddress = memberDetailAddress;
+        this.memberReference = memberReference;
+        this.memberRole = memberRole;
+        this.memberCreatedTime = memberCreatedTime;
+        this.memberUpdatedTime = memberUpdatedTime;
+    }
+
+
     public static MemberDTO toDTO(MemberEntity memberEntity) {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setId(memberEntity.getId());

@@ -51,6 +51,7 @@
             },
             dataType: "text",
             success: function (response) {
+                console.log("성공")
                 if (response == "Y") {
                     alert("ㅇㅇ샵에 오신걸 환영합니다!")
                     location.href = "/"
@@ -60,6 +61,7 @@
 
             },
             error: function () {
+                alert("로그인 정보가 일치하지 않습니다!")
                 console.log("실패")
             }
         });

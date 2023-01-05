@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>카테고리 등록</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <!--    Axios cdn_아래 코드    -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+
+        #write-form {
+            width: 500px;
+            margin-top: 50px;
+        }
+
+        #validation1 {
+            margin-top: 5px;
+            font-size: small;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+
+<p class="text-center fs-3 mt-5">카테고리 등록</p>
+
+<div class="container" id="write-form">
+    <form action="/product/category" method="post" name="saveForm">
+        <div class="form-floating mb-4">
+            <input type="text" name="categoryName" id="categoryName" placeholder="카테고리 이름" onblur="categoryCk()"
+                   class="form-control">
+            <label for="categoryName">카테고리 이름</label>
+            <div id="validation1">
+                <span id="cateBox"></span>
+            </div>
+        </div>
+        <div id="categoryResult">
+            <select name="saveCategoryResult" class="form-select">
+                <option value="">카테고리 목록 확인</option>
+                <option th:each="category : ${categoryList}"
+                        th:utext="${categoryList.categoryName}">
+
+                </option>
+            </select>
+        </div>
+        <div class="d-grid gap-2 col-5 mx-auto">
+            <input type="button" value="저장하기" onclick="categorySaveBt()" class="btn btn-primary mt-3">
+        </div>
+    </form>
+</div>
+</body>
+<script th:inline="javascript">
+
+    const categoryExp = /^.{1,15}$/
+    let expCk = false;
+
+    const categorySaveBt = () => {
+        if (expCk == true) {
+            document.saveForm.submit();
+        } else {
+            alert("15자 이내로 작성하세요!")
+        }
+    }
+
+    // const categorySaveBt = () => {
+    //     const cateName = document.getElementById("categoryName").value;
+    //     if (expCk == true) {
+    //         $.axios({
+    //             method: "post",
+    //             url: "/product/category",
+    //             data: {
+    //                 categoryName: cateName
+    //             }
+    //         }).then(res => {
+    //             const categoryList = res.data;
+    //             // let output = "<select name='saveCategoryResult' class='form-select'>"
+    //             // let output = <option th:utext="${categoryList.categoryName}">
+    //             let output = "<select name = 'saveCategoryResult' className = 'form-select' >"
+    //             output += "<option value = '' > 카테고리 목록확인 < /option>"
+    //             for (let i in categoryList) {
+    //                 output += "<option>"+categoryList[i].categoryName+"</option>"
+    //             }
+    //             output += "</select>"
+    //             document.getElementById('categoryResult').innerHTML = output;
+    //         })
+    //     } else {
+    //         alert("15자 이내로 작성하세요!")
+    //     }
+    // }
+
+
+    const categoryCk = () => {
+        const inputCate = document.getElementById("categoryName").value
+        const cateBox = document.getElementById("cateBox")
+
+        if (!inputCate.match(categoryExp)) {
+            cateBox.innerHTML = "15자 이내로 작성하세요!"
+            cateBox.style.color = "red";
+        } else {
+            cateBox.innerHTML = "사용가능합니다!"
+            cateBox.style.color = "green";
+            expCk = true;
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <style>
+        #adminList {
+            width: 200px;
+        }
+
+    </style>
+
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+
+<div class="list-group" id="adminList">
+        <a href="" class="list-group-item list-group-item-action mt-5">상품 등록</a>
+        <a href="" class="list-group-item list-group-item-action">상품 관리</a>
+        <a href="/product/category" class="list-group-item list-group-item-action">카테고리 등록</a>
+        <a href="" class="list-group-item list-group-item-action">카테고리 관리</a>
+        <a href="/member/memberList" class="list-group-item list-group-item-action">회원 관리</a>
+</div>
+
+</div>
+</body>
+</html>

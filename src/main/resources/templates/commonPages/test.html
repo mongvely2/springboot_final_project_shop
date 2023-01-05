@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="top" class="header">
+    <style>
+        .cnt{
+            position: absolute;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            bottom: 17px;
+            border-radius: 50%;
+            background: #ff5d4e;
+            text-align: center;
+            line-height: 23px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            border: 2px solid #fff;
+        }
+        .nav > ul > li{
+            float: left;
+            width:150px;
+            text-align: center;
+            color: #434242;
+            font-size: 16px;
+            position: relative;
+        }
+        .nav > ul > li > a:after{
+            content: '';
+            display: inline-block;
+            height:11px;
+            width:2px;
+            background-color:#dfdfdf;
+            margin-left:40px;
+        }
+        .nav > ul > li .an:after{
+            display:none;
+        }
+        .nav > ul > li .sub_wrap:after{
+            margin-left:25px;
+        }
+        .w130{
+            width:130px !important;
+        }
+        .nav > ul > li .w130:after{
+            margin-left:30px;
+        }
+        .w102{
+            width:102px !important;
+        }
+        .nav > ul > li > a{
+            color: #1f1f1f;
+            font-weight: 500;
+            display: inline-block;
+            line-height: 24px;
+            padding: 30px 0;
+            width: 100%;
+        }
+        .nav ul li .list:before{
+            content: '';
+            display: block;
+            width: 16px;
+            height: 14px;
+            background: url(/data/skin/MD_20.03.23/img/list.png);
+            float: left;
+            display: inline-block;
+            margin: 4px 10px;
+        }
+    </style>
+    <div class="topAd">
+        <a href="https://www.yorivery.com/board/view.php?&amp;bdId=notice&amp;sno=13"><img src="/data/skin/front/designpix_1223/img/banner/51ede99afa8d38a1e04ae1121e32f7bc_63410.jpg" alt="신규회원혜택" title="신규회원혜택"></a>	<div class="close">
+        <button type="button" id="btn">
+            <img src="/data/skin/MD_20.03.23/img/bt.png" alt="닫기">
+        </button>
+    </div>
+    </div>
+
+    <div class="navi">
+        <!-- 퀵 검색 폼 -->
+        <!-- 퀵 검색 폼 -->
+        <div class="container">
+            <h2 class="dn">상단 글로벌 메뉴</h2>
+            <ul>
+
+
+                <li><a href="../member/join_method.php" class="join" style="color:#ff3723">회원가입</a><span></span></li><!--테스트-->
+                <li>
+                    <a href="../member/login.php">로그인</a><span></span>
+                    <!--div class="benefits">
+                        <em>+ 2000 P</em>
+                    </div-->
+                </li>
+                <li class="cs"><a href="https://www.yorivery.com/service/index.php?myShop">고객센터</a></li>
+                <!--li><a href="../service/index.php">고객센터</a></li-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="head">
+        <div class="con_wrap">
+            <div class="container">
+                <h1><a href="../main/index.php"><img src="/data/skin/front/designpix_1223/img/banner/ef875a42fd3cf70f976a561b45498a0a_36524.png" alt="상단 로고" title="상단 로고"></a></h1>
+                <div class="search_wrap">
+                    <!-- 검색 폼 -->
+                    <div class="search">
+                        <form name="frmSearchTop" id="frmSearchTop" action="/goods/goods_search.php" method="get" novalidate="novalidate">
+
+                            <input type="hidden" name="adUrl" value="https://www.yorivery.com/goods/goods_view.php?goodsNo=1000001196">
+
+                            <fieldset>
+                                <legend>검색폼</legend>
+                                <div>
+
+                                    <input type="text" id="search-form" autocomplete="off" name="keyword" class="text" title="부산명물 용호낙지" placeholder="부산명물 용호낙지">
+                                    <input type="image" class="image" id="btnSearchTop" title="검색" value="검색" src="/data/skin/MD_20.03.23/img/scarch.png" alt="검색">
+
+                                </div>
+                            </fieldset>
+
+                        </form>
+                        <div class="down" style="display: none;">
+                            <div>
+                                <span>추천검색어</span>
+                                <ul>
+                                    <li><a href="../goods/goods_search.php?keyword=%EC%96%BC%EC%A7%B1%EC%AD%88%EA%BE%B8%EB%AF%B8">얼짱쭈꾸미</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EC%B6%98%EC%B2%9C%EB%8B%AD%EA%B0%88%EB%B9%84">춘천닭갈비</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=2%EB%8C%80">2대</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%ED%95%9C%EC%9D%BC%EA%B4%80">한일관</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EA%BF%80%EB%B6%88%EA%B3%A0%EA%B8%B0">꿀불고기</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EC%9D%BC%EC%82%B0%EB%B9%84%EB%B9%94%EA%B5%AD%EC%88%98">일산비빔국수</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EB%82%98%EB%93%9C%EB%A6%AC%EC%AB%84%EB%A9%B4">나드리쫄면</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EB%8F%BC%EC%A7%80%EA%B0%88%EB%B9%84">돼지갈비</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EC%8B%9C%EC%B9%B4%EA%B3%A0%ED%94%BC%EC%9E%90">시카고피자</a></li>
+                                    <li><a href="../goods/goods_search.php?keyword=%EA%B5%B0%EC%82%B0%EC%98%A4%EC%A7%95%EC%96%B4">군산오징어</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <script type="text/javascript">
+                        $(function(){
+                            $(".search .down").hide();
+                            $(".search").click(function(){
+                                $(".search .down").slideToggle();
+                            });
+                        });
+                    </script>
+                    <!-- 검색 폼 -->
+                </div>
+                <div class="cart_wrap">
+                    <a href="../order/cart.php"><img src="/data/skin/MD_20.03.23/img/y_cart..png" alt="홈으로"><span class="cnt">0</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="top-service">
+        <div class="container">
+            <!--<h1><a href="/"><img src="/data/skin/front/designpix_1223/img/header/btn_gohome.png" alt="홈으로"/></a></h1>-->
+            <div class="gnb">
+                <!-- 카테고리 시작 -->
+                <!-- =includeWidget('proc/category_side', 'type', 'layer', 'cateType', 'cate', 'menuType' ,'all')}-->
+                <!-- 카테고리 끝 -->
+                <div class="nav">
+                    <ul>
+                        <li style="width:170px;">
+                            <a href="#" class="sub_wrap"><span class="list"></span>전체 카테고리</a>
+                            <div class="sub_gnb" style="display: none;">
+                                <div class="sub_gnb_wrap">
+                                    <ul>
+                                        <li><a href="http://yorivery.com/goods/populate.php?sno=2" class="str"><strong>맛보드 hot100</strong></a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=002" class="str"><strong>신규맛집</strong></a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=014001" class="str"><strong>맛집랜드</strong></a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=014001">레전드 노포맛집</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=014005">그랜드 맛집</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=014002">라이징 스타</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=014003">로컬푸드</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=014004">프렌차이즈 본부</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006001" class="str"><strong>메뉴별</strong></a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006001">탕/찌개/국</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006002">볶음/반찬</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006008">육류</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006009">해산물</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006005">캠핑/간편요리</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006006">분식</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006003">간식/디저트/음료</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006011">헬씨/다이어트</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=006010">주류</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="http://yorivery.com/goods/goods_list.php?cateCd=016" class="str"><strong>묶음배송</strong></a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=012001" class="str"><strong>알뜰구매</strong></a></li>
+                                        <li><a href="http://yorivery.com/goods/event_sale.php?sno=155">캠핑요리특가</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=012001">상시할인</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=012002">주간할인</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=012003">통큰할인</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=012004">무료배송</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007001" class="str"><strong>지역별 맛집</strong></a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007001">서울/경기</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007002">부산/경남</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007003">대구/경북</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007004">강원도</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007005">전라도</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007006">충청도</a></li>
+                                        <li><a href="https://www.yorivery.com/goods/goods_list.php?cateCd=007007">제주도</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a href="http://yorivery.com/board/list.php?bdId=EVENTLIST" class="str"><strong>이벤트</strong></a></li>
+                                        <li><a href="http://yorivery.com/board/list.php?bdId=EVENTLIST">진행중인 이벤트</a></li>
+                                        <li><a href="http://yorivery.com/board/list.php?bdId=lasteventlist">종료된 이벤트</a></li>
+                                        <li><a href="http://yorivery.com/board/list.php?bdId=name">당첨자 발표</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a class="w130" href="http://yorivery.com/goods/populate.php?sno=2">맛보드hot100</a></li>
+                        <li><a class="w102" href="https://www.yorivery.com/goods/goods_list.php?cateCd=002">신규맛집</a></li>
+                        <li><a class="w102" href="https://www.yorivery.com/goods/goods_list.php?cateCd=014001">맛집랜드</a></li>
+                        <li><a class="w102" href="https://www.yorivery.com/goods/goods_list.php?cateCd=006001">메뉴별</a></li>
+                        <li><a class="w102" href="http://yorivery.com/goods/goods_list.php?cateCd=016">묶음배송</a></li>
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!--스크롤 시 nav고정 스크립트-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(window).scroll(function() {
+                var position = $(window).scrollTop();
+                //alert(1);
+                if(position > 128){
+                    $("#top.header .top-service").addClass('fixed');
+                }else if(position < 128){
+                    $("#top.header .top-service").removeClass('fixed');
+                }
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            jQuery("#btn").click(function() {
+
+                if(jQuery(".topAd").css("display") == "none") {
+
+                    jQuery(".topAd").css("display", "block");
+                }
+
+                else {
+
+                    jQuery(".topAd").css("display", "none");
+                }
+            });
+        });
+    </script>
+    <!--<script>
+        // html dom 이 다 로딩된 후 실행된다.
+        $(document).ready(function(){
+            // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+            $(".sub_wrap").click(function(){
+                var submenu = $(".sub_gnb");
+
+                // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+                if( submenu.is(":visible") ){
+                    submenu.slideToggle(300);
+                }else{
+                    submenu.slideToggle(300);
+                }
+            });
+        });
+    </script>-->
+    <script>
+        jQuery(document).ready(function($){
+            $(".sub_gnb").hide();
+            $(".sub_wrap").click(function(){
+                $(".sub_gnb").slideToggle();
+            });
+
+            $(document).mouseup(function (e){
+                var menu = $(".sub_gnb");
+                if(menu.has(e.target).length === 0){
+                    $(".sub_gnb").slideUp();
+                }
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        /*
+            function tipLayer(){
+                var target = $('.btn-open-tip');
+                $(target).each(function() {
+                    var i = 1;
+                    var currentTab = $(this).attr('href');
+                    $(this).click(function() {
+                        if ($(currentTab).hasClass("dn")) {
+                            $(this).parent().find('.layer').addClass('dn');
+                            $(currentTab).removeClass('dn');
+                        }
+                        else {
+                            $(currentTab).addClass('dn');
+                        }
+                        return false;
+                    });
+                    $(currentTab).find('.close').click(function() {
+                        $(this).parent().parent().addClass('dn');
+                        i = 1;
+                        return false;
+                    });
+                    $('html').click(function(e) {
+                        if($(e.target).closest('#top.header .top-service .favorite .layer').length === 0) {
+                            $('#top.header .top-service .favorite .layer').addClass('dn');
+                        }
+                    });
+                });
+            }
+
+            // 전체 카테고리 레이어
+            function allCategoryLayer(){
+                $(document).on('click','#top.header .head .all-category > a',function(){
+                    $('#top.header .head .all-category-layer').addClass('db');
+                    return false;
+                });
+                $(document).on('click','#top.header .head .all-category-layer .box > button',function(){
+                    $(this).parent().parent().removeClass('db');
+                });
+                $('html').click(function(e) {
+                    if($(e.target).closest('#top.header .head .all-category-layer').length === 0) {
+                        $('#top.header .head .all-category-layer').removeClass('db');
+                    }
+                });
+            }
+
+            // gnb 레이어 메뉴
+            function gnbLayer(){
+                $(document).on('focusin mouseenter','#top.header .head .gnb > ul > li > a',function(){
+                    $(this).parent().siblings().find('> a').removeClass('has-sub');
+                    $(this).addClass('has-sub');
+                    $(this).parent().siblings().find('ul').removeClass('db');
+                    $(this).next().addClass('db');
+                });
+                $(document).on('focusin mouseenter','#top.header .head .gnb > ul > li ul li',function(){
+                    $(this).siblings().find('ul').removeClass('db');
+                    $(this).find('> ul').addClass('db');
+                    $(this).siblings().removeClass('dot-hide');
+                    $(this).next().addClass('dot-hide');
+                });
+
+                // 마우스 아웃시 메뉴 일정시간 유지
+                var setHoldingTime = 500;
+                var reset;
+
+                $('#top.header .head .gnb > ul > li').on({
+                    mouseenter: function(){
+                        var self = this;
+                        clearTimeout(reset);
+                        if ($(self).is(":hover")){
+                            $(self).siblings().find('ul').removeClass('db');
+                            $(self).siblings().find('> a').removeClass('has-sub');
+                        }
+                    },
+                    mouseleave: function(){
+                        var self = this;
+                        reset = setTimeout(function(){
+                            if (!$(self).is(":hover")){
+                                $(self).find('ul').removeClass('db');
+                                $(self).find('> a').removeClass('has-sub');
+                            }
+                        }, setHoldingTime);
+                    }
+                });
+                $('#top.header .head .gnb > ul').on({
+                    mouseenter: function(){
+                        clearTimeout(reset);
+                        $(this).addClass('db');
+                    },
+                    mouseleave: function(){
+                        var self = this;
+                        reset = setTimeout(function(){
+                            if (!$(self).is(":hover")){
+                                $(this).removeClass('db');
+                            }
+                        }, setHoldingTime);
+                    }
+                });
+            }
+            // 함수 호출
+            $(document).ready(function() {
+                allCategoryLayer();
+                gnbLayer();
+                tipLayer();
+            });
+        */
+    </script>
+</div>
+</body>
+</html>
