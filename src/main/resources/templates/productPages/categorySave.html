@@ -39,6 +39,7 @@
             <select name="saveCategoryResult" class="form-select">
                 <option value="">카테고리 목록 확인</option>
                 <option th:each="category : ${categoryList}"
+                        th:value="${category.id}"
                         th:utext="${categoryList.categoryName}">
 
                 </option>

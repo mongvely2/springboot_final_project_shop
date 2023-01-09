@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>상품등록</title>
@@ -7,6 +7,9 @@
     <script th:src="@{/js/jquery.js}"></script>
     <!--    Axios cdn_아래 코드    -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!--  위지윅 전용  -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/translations/ko.js"></script>
 
     <style>
         #write-form {
@@ -27,10 +30,16 @@
             margin-left: 10px;
         }
 
+        .ck-editor__editable {      /* ckeditor 높이 */
+            min-height: 300px;
+        }
+
     </style>
 </head>
 <body>
 <th:block th:replace="commonPages/header :: header"></th:block>
+
+
 
 <p class="text-center fs-3 mt-5">상품등록</p>
 
@@ -40,12 +49,12 @@
             <input type="text" name="productName" id="productName" placeholder="상품명(게시글 제목)" onblur=""
                    class="form-control">
             <label for="productName">상품명(게시글 제목)</label>
-            <div id="validation1">
-                <span id=""></span>
-            </div>
+            <!--            <div id="validation1">-->
+            <!--                <span id=""></span>-->
+            <!--            </div>-->
 
-            <select name="categoryId" id="categoryId" class="form-select" >
-                <option value="">선택</option>
+            <select name="categoryId" id="categoryId" class="form-select">
+                <option value="">카테고리 선택</option>
                 <option
                         th:each="category : ${categoryList}"
                         th:value="${category.id}"
@@ -55,49 +64,63 @@
             </select>
         </div>
 
-        <div class="form-floating mb-4">
-            <input type="text" name="productPrice" id="productPrice" placeholder="판매가" onblur=""
-                   class="form-control">
-            <label for="productPrice">판매가</label>
-<!--            <div id="validation2">-->
-<!--                <span id=""></span>-->
-<!--            </div>-->
-
-            <input type="text" name="productStock" id="productStock" placeholder="재고수량" onblur=""
-                   class="form-control">
-            <label for="productStock">재고수량</label>
-<!--            <div id="validation3">-->
-<!--                <span id=""></span>-->
-<!--            </div>-->
-
-            <input type="text" name="productSale" id="productSale" placeholder="판매여부(판매글 노출)" onblur=""
-                   class="form-control">
-            <label for="productSale">판매여부(판매글 노출)</label>
-<!--            <div id="validation4">-->
-<!--                <span id=""></span>-->
-<!--            </div>-->
-        </div>
-
-        <div class="form-floating mb-4">
-            <input type="text" name="memberName" id="memberName" placeholder="상세내용" onblur="nameCheck()"
-                   class="form-control">
-            <label for="memberName">상세내용</label>
-            <div id="validation5">
-                <span id="nameBox"></span>
+        <div class="input-group mb-4">
+            <div class="form-floating">
+                <input type="text" name="productPrice" id="productPrice" placeholder="판매가" onblur=""
+                       class="form-control">
+                <label for="productPrice">판매가</label>
+                <!--                <div id="validation2">-->
+                <!--                    <span id=""></span>-->
+                <!--                </div>-->
             </div>
+
+            <div class="form-floating">
+                <input type="text" name="productStock" id="productStock" placeholder="재고수량" onblur=""
+                       class="form-control">
+                <label for="productStock">재고수량</label>
+                <!--                <div id="validation3">-->
+                <!--                    <span id=""></span>-->
+                <!--                </div>-->
+            </div>
+
+            <select name="productSale" id="productSale" class="form-select">
+                <option value="">판매여부 선택</option>
+                <option value="Y">판매진행</option>
+                <option value="N">판매중지</option>
+            </select>
+            <!--            <div class="form-floating">-->
+            <!--                <input type="text" name="productSale" id="productSale" placeholder="판매여부(판매글 노출)" onblur=""-->
+            <!--                       class="form-control">-->
+            <!--                <label for="productSale">판매여부(판매글 노출)</label>-->
+            <!--                <div id="validation4">-->
+            <!--                    <span id=""></span>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
+
+        <div class="mb-4">
+            <textarea type="text" name="productContents" id="productContents" placeholder="상세내용"
+                      onblur="nameCheck()"></textarea>
+        </div>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#productContents'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
 
         <div class="form-floating mb-4">
             <input type="text" name="memberMobile" id="memberMobile" placeholder="핸드폰번호입력" onblur="mobileCheck()"
                    class="form-control">
             <label for="memberMobile">핸드폰번호</label>
-            <div id="validation6">
-                <span id="expMobile"></span>
-            </div>
+            <!--            <div id="validation6">-->
+            <!--                <span id="expMobile"></span>-->
+            <!--            </div>-->
         </div>
 
         <div class="d-grid gap-2 col-5 mx-auto">
-            <input type="button" value="가입하기" onclick="memberSaveBt()" class="btn btn-primary mt-3">
+            <input type="button" value="상품등록" onclick="memberSaveBt()" class="btn btn-primary mt-3">
         </div>
         <a href="/" class="btn btn-primary mt-3 mb-5">홈이동</a>
     </form>
