@@ -28,7 +28,8 @@ public class ProductDTO {
     private LocalDateTime productUpdatedTime;
 
     private String productFileAttached;
-    private List<MultipartFile> productFile;
+    private MultipartFile productThumbnail;
+    private List<MultipartFile> productDetailFile;
     private List<String> originalFileName;
     private List<String> storedFileName;
 

@@ -1,6 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.dto.CategoryDTO;
+import com.example.shop.dto.ProductDTO;
 import com.example.shop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -55,5 +57,16 @@ public class ProductController {
         model.addAttribute("categoryList", categoryList);
         System.out.println("categoryList = " + categoryList);
         return "productPages/productSave";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute ProductDTO productDTO) throws IOException {
+        productService.save(productDTO);
+        return "memberPages/adminPage";
+    }
+
+    @GetMapping("/productList")
+    public String findAllForm() {
+        return "productPages/productList";
     }
 }

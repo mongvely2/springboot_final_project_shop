@@ -26,4 +26,22 @@ public class FileEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private ProductEntity productEntity;
+
+    public static FileEntity toSaveThumbnailFile(ProductEntity product, String originalFileName, String storedFileName) {
+        FileEntity fileEntity = new FileEntity();
+        fileEntity.setFileType("T");
+        fileEntity.setOriginalFileName(originalFileName);
+        fileEntity.setStoredFileName(storedFileName);
+        fileEntity.setProductEntity(product);
+        return fileEntity;
+    }
+
+    public static FileEntity toSaveDetailFile(ProductEntity product, String originalFileName, String storedFileName) {
+        FileEntity fileEntity = new FileEntity();
+        fileEntity.setFileType("D");
+        fileEntity.setOriginalFileName(originalFileName);
+        fileEntity.setStoredFileName(storedFileName);
+        fileEntity.setProductEntity(product);
+        return fileEntity;
+    }
 }

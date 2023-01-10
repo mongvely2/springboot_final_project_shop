@@ -30,7 +30,7 @@
             margin-left: 10px;
         }
 
-        .ck-editor__editable {      /* ckeditor 높이 */
+        .ck-editor__editable { /* ckeditor 높이 */
             min-height: 300px;
         }
 
@@ -40,11 +40,10 @@
 <th:block th:replace="commonPages/header :: header"></th:block>
 
 
-
 <p class="text-center fs-3 mt-5">상품등록</p>
 
 <div class="container" id="write-form">
-    <form action="/product/save" method="post" name="saveForm">
+    <form action="/product/save" method="post" name="saveForm" enctype="multipart/form-data">
         <div class="form-floating input-group mb-4">
             <input type="text" name="productName" id="productName" placeholder="상품명(게시글 제목)" onblur=""
                    class="form-control">
@@ -59,10 +58,10 @@
                         th:each="category : ${categoryList}"
                         th:value="${category.id}"
                         th:utext="${category.categoryName}">
-
                 </option>
             </select>
         </div>
+
 
         <div class="input-group mb-4">
             <div class="form-floating">
@@ -110,21 +109,26 @@
                 });
         </script>
 
-        <div class="form-floating mb-4">
-            <input type="text" name="memberMobile" id="memberMobile" placeholder="핸드폰번호입력" onblur="mobileCheck()"
-                   class="form-control">
-            <label for="memberMobile">핸드폰번호</label>
-            <!--            <div id="validation6">-->
-            <!--                <span id="expMobile"></span>-->
-            <!--            </div>-->
+        <div class="mb-3">
+            <label for="thumbnailFile">대표이미지(썸네일)</label>
+            <input type="file" name="productThumbnail" id="thumbnailFile" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="detailFile">상세이미지</label>
+            <input type="file" name="productDetailFile" id="detailFile" class="form-control" multiple>
         </div>
 
         <div class="d-grid gap-2 col-5 mx-auto">
-            <input type="button" value="상품등록" onclick="memberSaveBt()" class="btn btn-primary mt-3">
+            <input type="button" value="상품등록" onclick="productSaveBt()" class="btn btn-primary mt-3">
         </div>
         <a href="/" class="btn btn-primary mt-3 mb-5">홈이동</a>
     </form>
 </div>
 
 </body>
+<script th:inline="javascript">
+    const productSaveBt = () => {
+        document.saveForm.submit();
+    }
+</script>
 </html>

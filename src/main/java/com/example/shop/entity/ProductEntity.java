@@ -1,5 +1,6 @@
 package com.example.shop.entity;
 
+import com.example.shop.dto.ProductDTO;
 import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +49,33 @@ public class ProductEntity extends BaseEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<FileEntity> fileEntityList = new ArrayList<>();
 
+    public static ProductEntity toSaveEntity(ProductDTO productDTO, CategoryEntity categoryEntity) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductName(productDTO.getProductName());
+        productEntity.setProductPrice(productDTO.getProductPrice());
+        productEntity.setProductStock(productDTO.getProductStock());
+        productEntity.setProductSale(productDTO.getProductSale());
+        productEntity.setProductContents(productDTO.getProductContents());
+        productEntity.setProductDelete("N");
+        productEntity.setProductFileAttached("N");
+        productEntity.setProductHits(0);
+        productEntity.setCategoryEntity(categoryEntity);
+        return productEntity;
+    }
+
+    public static ProductEntity toSaveFileEntity(ProductDTO productDTO, CategoryEntity categoryEntity) {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductName(productDTO.getProductName());
+        productEntity.setProductPrice(productDTO.getProductPrice());
+        productEntity.setProductStock(productDTO.getProductStock());
+        productEntity.setProductSale(productDTO.getProductSale());
+        productEntity.setProductContents(productDTO.getProductContents());
+        productEntity.setProductDelete("N");
+        productEntity.setProductFileAttached("Y");
+        productEntity.setProductHits(0);
+        productEntity.setCategoryEntity(categoryEntity);
+        return productEntity;
+    }
 
 
 
