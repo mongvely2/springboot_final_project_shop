@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>신제품 리스트</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <!--    Axios cdn_아래 코드    -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        /*body {*/
+        /*    margin: 40px;*/
+        /*}*/
+
+        .wrapper {
+            margin: 40px;
+            display: grid;
+            grid-template-columns: 30% 30% 30%; /* 한 페이지 세로,  */
+            grid-gap: 10px;
+            background-color: #fff;
+            color: #444;
+        }
+
+        .box {
+            background-color: #444;
+            color: #fff;
+            border-radius: 5px;
+            /*padding: 100px;*/
+            font-size: 150%;
+        }
+
+        #thumb {
+            width: 70%;
+            height: 70%;
+            margin: 0 auto;
+        }
+
+        #txt {
+            font-size: medium;
+        }
+    </style>
 </head>
 <body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+<ul>
+    <li class="wrapper" th:each="product: ${productList}">
+        <div class="box">
+            <a href="">
+                <img id="thumb" th:src="@{|/upload/${product.thumbFileName}}" alt="">
+            </a>
+            <div id="txt">
+                <a href="">
+                    [[${product.productName}]]
+                </a> <br>
+                <a href="">
+                    [[${product.productPrice}]]원
+                </a>
+            </div>
+        </div>
+        <!--    <div class="box b">B</div>-->
+        <!--    <div class="box c">C</div>-->
+        <!--    <div class="box d">D</div>-->
+        <!--    <div class="box e">E</div>-->
+        <!--    <div class="box f">F</div>-->
+        <!--    <div class="box g">g</div>-->
+        <!--    <div class="box h">h</div>-->
+        <!--    <div class="box i">i</div>-->
+    </li>
+</ul>
 
 </body>
 </html>

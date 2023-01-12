@@ -9,10 +9,14 @@ import com.example.shop.repository.CategoryRepository;
 import com.example.shop.repository.FileRepository;
 import com.example.shop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,7 +88,7 @@ public class ProductService {
 //                썸네일
             MultipartFile productThumbnail = productDTO.getProductThumbnail();
             String originalFileName = productThumbnail.getOriginalFilename();
-            String storedFileName = System.currentTimeMillis() + "_" + originalFileName;
+            String storedFileName = "T_" + System.currentTimeMillis() + "_" + originalFileName;
             String filePath = "D:\\boot_final_img\\" + storedFileName;
             productThumbnail.transferTo(new File(filePath));
             FileEntity fileEntity = FileEntity.toSaveThumbnailFile(product, originalFileName, storedFileName);
@@ -114,6 +118,39 @@ public class ProductService {
 //                fileRepository.save(fileEntity);
 //            }
         }
+    }
+
+
+    @Transactional
+    public Page<ProductDTO> paging(Pageable pageable) {   //Pageable spring으로 import 여부 확인(java x)
+//        page: (하단에 표시되는) 해당 page(배열처럼 0번이 1번임) / pageLimit: 보여줄 한 페이지에서의 게시글 수
+        int page = pageable.getPageNumber() - 1;
+        final int pageLimit = 3;
+//        Page<> : 스프링에서 제공하는 인터페이스 / List<> 랑 헷갈리면 안 됨
+        Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+        System.out.println("pageable = " + pageable);
+        System.out.println("productEntities = " + productEntities);
+//                productEntities에 담긴 productEntity 객체를 product에 담아서
+//                productDTO 객체로 하나씩 옮겨 담는 과정
+        Page<ProductDTO> productList = productEntities.map(
+                product -> new ProductDTO
+                        (
+                        product.getId(),
+                        product.getProductName(),
+                        product.getProductPrice(),
+                        product.getProductStock(),
+                        product.getProductSale(),
+                        product.getProductContents(),
+                        product.getProductDelete(),
+                        product.getProductFileAttached(),
+                        product.getProductHits(),
+                        product.getCategoryEntity(),
+                        product.getCreatedTime(),
+                        product.getUpdatedTime(),
+                        product.getFileEntityList()
+                )
+        );
+        return productList;
     }
 }
 
