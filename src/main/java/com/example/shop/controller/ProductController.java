@@ -68,7 +68,7 @@ public class ProductController {
         return "memberPages/adminPage";
     }
 
-    @GetMapping("/productList")
+    @GetMapping
 //    Pageble 임포트시 반드시 org.springframework.data.domain 로 선택할것!!!!
 //    PageableDefault 를 사용했기 때문에 매개변수 없이 기본값을 세팅하여 넘겨줄 수 있음
 //    실제로 html(뷰단)에서 넘겨주는 매개변수 없음
@@ -76,7 +76,6 @@ public class ProductController {
                          Model model) {
         Page<ProductDTO> productDTOList = productService.paging(pageable);
         model.addAttribute("productList", productDTOList);
-        System.out.println("productDTOList = " + productDTOList);
 //        start 페이지 end 페이지 계산방식 -> 삼항연산자 사용
 //        int nowPage = boardDTOList.getNumber();
         int blockLimit = 3;
@@ -95,5 +94,21 @@ public class ProductController {
         model.addAttribute("endPage", endPage);
         return "productPages/productList";
     }
+
+    @GetMapping("/{id}")
+//    경로상에 있는 숫자를 전달해주는 어노테이션: @PathVariable -> 문자가 있으면 error
+    public String findById(@PathVariable Long id,
+                           @PageableDefault(page = 1) Pageable pageable,
+                           Model model) {
+//        조회수 1증가
+        productService.updateHits(id);
+        ProductDTO productDTO = productService.findById(id);
+        System.out.println("productDTO = " + productDTO);
+
+        model.addAttribute("product", productDTO);
+        model.addAttribute("page", pageable.getPageNumber());
+        return null;
+    }
+
 
 }

@@ -45,14 +45,14 @@
 <ul>
     <li class="wrapper" th:each="product: ${productList}">
         <div class="box">
-            <a href="">
+            <a th:href="@{|/product/${product.id}|(page=${productList.number+1})}">
                 <img id="thumb" th:src="@{|/upload/${product.thumbFileName}}" alt="">
             </a>
             <div id="txt">
-                <a href="">
+                <a th:href="@{|/product/${product.id}|}">
                     [[${product.productName}]]
                 </a> <br>
-                <a href="">
+                <a th:href="@{|/product/${product.id}|}">
                     [[${product.productPrice}]]원
                 </a>
             </div>
@@ -67,6 +67,73 @@
         <!--    <div class="box i">i</div>-->
     </li>
 </ul>
+
+<div class="container">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <!--첫페이지 요청 링크  /board?page=1   -->
+            <a class="page-link" th:href="@{/product(page=1)}">   <!--보내고싶은 파라미터 값을 소괄호에(물음표 없음) 작성-->
+                <!--                    사용자 3페이지 = number2 = /board?page=2  -> 요청한 값보다-1(배열처럼)  -->
+                <span>First</span>
+            </a>
+        </li>
+
+        <li th:class="${productList.first} ? 'disabled'" class="page-item">
+            <!--                 첫페이지면 #하고, 그게 아니면 @~로 이동하라  -> #: 그대로 있어라(이동하지마라)      -->
+            <!--boardList.first: isFirst()
+                boardList.number: getNumber()-->
+            <a class="page-link" th:href="${productList.first} ? '#' : @{/product(page=${productList.number})}">
+                <span><</span>
+            </a>
+        </li>
+
+        <!-- startPage ~ endPage 까지 숫자를 만들어주는 역할
+         for(int page=startPage; page<=endPage; page++
+         Thymeleaf에서 제공하는 sequence를 활용함(for문) -->
+        <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
+            th:class="${page == productList.number + 1} ? 'page-item active'" class="page-item">
+            <!--            하단 페이지바에서 현재페이지는 다른색으로 보여지게끔 하는 부트스트랩 코드(위 코드)    -->
+            <a class="page-link" th:text="${page}" th:href="@{/product(page=${page})}"></a>
+        </li>
+
+        <!-- 다음 페이지 요청
+            현재 3페이지를 보고 있다면 다음 페이지는 4페이지임.
+            getNumber() 값은 2임.
+            따라서 4페이지를 보고 싶다면 getNumber()+2를 해야 컨트롤러에 4를 요청할 수 있음. -->
+
+        <li th:class="${productList.last} ? 'disabled'"> <!-- disabled: bootstrap 제공 -->
+            <a class="page-link" th:href="${productList.last} ? '#' : @{/product(page=${productList.number + 2})}">
+                <span>&gt;</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <!-- .totalPages는 Page객체가 제공하는 total메서드 가져옴, test클래스 참고하면 됨 -->
+            <a class="page-link" th:href="@{/product(page=${productList.totalPages})}">
+                <span>Last</span>
+            </a>
+        </li>
+    </ul>
+<!--    <div class="container">-->
+<!--        &lt;!&ndash;            <div th:if="${session.loginSession.memberEmail != null}">&ndash;&gt;-->
+<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        <tr>-->
+<!--            <th th:if="${session.loginSession != null}">-->
+<!--                <a href="/board/save" class="btn btn-primary">글작성</a>-->
+<!--            </th>-->
+<!--            <th>-->
+<!--                <a href="/" class="btn btn-primary">홈으로 이동</a>-->
+<!--            </th>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash;            <div th:if="${session.loginSession.memberEmail != null}">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <a href="/board/save" class="btn btn-primary">글작성</a>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <a href="/" class="btn btn-primary">홈으로 이동</a>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <div th:unless="${session.loginSession.memberEmail == null}">&ndash;&gt;-->
+<!--        &lt;!&ndash;                <a href="/" class="btn btn-primary">홈으로 이동</a>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--    </div>-->
+</div>
 
 </body>
 </html>

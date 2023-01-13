@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -128,8 +129,6 @@ public class ProductService {
         final int pageLimit = 3;
 //        Page<> : 스프링에서 제공하는 인터페이스 / List<> 랑 헷갈리면 안 됨
         Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
-        System.out.println("pageable = " + pageable);
-        System.out.println("productEntities = " + productEntities);
 //                productEntities에 담긴 productEntity 객체를 product에 담아서
 //                productDTO 객체로 하나씩 옮겨 담는 과정
         Page<ProductDTO> productList = productEntities.map(
@@ -151,6 +150,26 @@ public class ProductService {
                 )
         );
         return productList;
+    }
+
+    @Transactional
+    public void updateHits(Long id) {
+        productRepository.updateHits(id);
+    }
+
+    @Transactional
+    public ProductDTO findById(Long id) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
+        if (optionalProductEntity.isPresent()) {
+            ProductEntity productEntity = optionalProductEntity.get();
+            CategoryEntity categoryEntity = productEntity.getCategoryEntity();
+            List<FileEntity> fileEntityList = productEntity.getFileEntityList();
+//          toDTO 넘겨줄 매개변수 =  productEntity, categoryEntity, fileEntityList
+            ProductDTO productDTO = ProductDTO.toDTO(productEntity, categoryEntity, fileEntityList);
+            return productDTO;
+        } else {
+            return null;
+        }
     }
 }
 

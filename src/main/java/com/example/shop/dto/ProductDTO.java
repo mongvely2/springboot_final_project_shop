@@ -2,6 +2,8 @@ package com.example.shop.dto;
 
 import com.example.shop.entity.CategoryEntity;
 import com.example.shop.entity.FileEntity;
+import com.example.shop.entity.MemberEntity;
+import com.example.shop.entity.ProductEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +40,72 @@ public class ProductDTO {
     private List<String> originalFileName;
     private List<String> storedFileName;
     private String thumbFileName;
+
+    public static ProductDTO toDTO(ProductEntity productEntity, CategoryEntity categoryEntity, List<FileEntity> fileEntityList) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(productEntity.getId());
+        productDTO.setProductName(productEntity.getProductName());
+        productDTO.setProductPrice(productEntity.getProductPrice());
+        productDTO.setProductStock(productEntity.getProductStock());
+        productDTO.setProductSale(productEntity.getProductSale());
+        productDTO.setProductContents(productEntity.getProductContents());
+        productDTO.setProductDelete(productEntity.getProductDelete());
+        productDTO.setProductHits(productEntity.getProductHits());
+        productDTO.setCategoryId(categoryEntity.getId());
+        productDTO.setProductCreatedTime(productEntity.getCreatedTime());
+        productDTO.setProductUpdatedTime(productEntity.getUpdatedTime());
+
+//        첨부파일 있는 경우
+        if (productEntity.getProductFileAttached().equals("Y")) {
+            productDTO.setProductFileAttached(productEntity.getProductFileAttached());
+
+            for (int i = 0; i < fileEntityList.size(); i++) {
+
+                if (fileEntityList.get(i).getFileType().equals("T")) {
+                    productDTO.setThumbFileName(fileEntityList.get(i).getStoredFileName());
+                }
+
+                if (fileEntityList.get(i).getFileType().equals("D")) {
+                    List<String> originalFileNameList = new ArrayList<>();
+                    List<String> storedFileNameList = new ArrayList<>();
+//            첨부파일 이름 가져오기
+//              BoardEntity에서 boardFileEntityList 선언해줘서 사용가능함
+                    for (FileEntity var : productEntity.getFileEntityList()) {
+                        originalFileNameList.add(var.getOriginalFileName());
+                        storedFileNameList.add(var.getStoredFileName());
+                    }
+                    productDTO.setOriginalFileName(originalFileNameList);
+                    productDTO.setStoredFileName(storedFileNameList);
+                }
+
+            }
+        } else {
+            productDTO.setProductFileAttached(productEntity.getProductFileAttached());
+        }
+        return productDTO;
+    }
+
+
+//            if (fileEntity.getFileType().equals("T")) {
+//                productDTO.setThumbFileName(fileEntity.getStoredFileName());
+//            }
+//            if (fileEntity.getFileType().equals("D")) {
+//                List<String> originalFileNameList = new ArrayList<>();
+//                List<String> storedFileNameList = new ArrayList<>();
+////            첨부파일 이름 가져오기
+////              BoardEntity에서 boardFileEntityList 선언해줘서 사용가능함
+//                for (FileEntity var : productEntity.getFileEntityList()) {
+//                    originalFileNameList.add(var.getOriginalFileName());
+//                    storedFileNameList.add(var.getStoredFileName());
+//                }
+//                productDTO.setOriginalFileName(originalFileNameList);
+//                productDTO.setStoredFileName(storedFileNameList);
+//            }
+//        } else {
+//            productDTO.setProductFileAttached(productEntity.getProductFileAttached());
+//        }
+//        return productDTO;
+//    }
 
 
     //    페이징 목록 변환을 위한 생성자 -> 페이징으로 목록에 무엇을 보여줄건지 필드
