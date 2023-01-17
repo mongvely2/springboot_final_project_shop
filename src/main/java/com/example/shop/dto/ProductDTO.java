@@ -40,6 +40,7 @@ public class ProductDTO {
     private List<String> originalFileName;
     private List<String> storedFileName;
     private String thumbFileName;
+    private String productDelively;
 
     public static ProductDTO toDTO(ProductEntity productEntity, CategoryEntity categoryEntity, List<FileEntity> fileEntityList) {
         ProductDTO productDTO = new ProductDTO();
@@ -54,6 +55,7 @@ public class ProductDTO {
         productDTO.setCategoryId(categoryEntity.getId());
         productDTO.setProductCreatedTime(productEntity.getCreatedTime());
         productDTO.setProductUpdatedTime(productEntity.getUpdatedTime());
+        productDTO.setProductDelively(productEntity.getProductDelively());
 
 //        첨부파일 있는 경우
         if (productEntity.getProductFileAttached().equals("Y")) {
@@ -123,20 +125,25 @@ public class ProductDTO {
                       CategoryEntity categoryId,
                       LocalDateTime productCreatedTime,
                       LocalDateTime productUpdatedTime,
+                      String productDelively,
                       List<FileEntity> productThumbnail
     ) {
-        this.id = id;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productStock = productStock;
-        this.productSale = productSale;
-        this.productContents = productContents;
-        this.productDelete = productDelete;
-        this.productFileAttached = productFileAttached;
-        this.productHits = productHits;
-        this.categoryId = categoryId.getId();
-        this.productCreatedTime = productCreatedTime;
-        this.productUpdatedTime = productUpdatedTime;
+//        if (productSale.equals("Y")) {    썸네일-productSale.equals("Y") 일 때만 썸네일 출력하기
+
+
+            this.id = id;
+            this.productName = productName;
+            this.productPrice = productPrice;
+            this.productStock = productStock;
+            this.productSale = productSale;
+            this.productContents = productContents;
+            this.productDelete = productDelete;
+            this.productFileAttached = productFileAttached;
+            this.productHits = productHits;
+            this.categoryId = categoryId.getId();
+            this.productCreatedTime = productCreatedTime;
+            this.productUpdatedTime = productUpdatedTime;
+            this.productDelively = productDelively;
 //        this.storedFileName = productThumbnail;
 
 //        List<String> storedFileNameList = new ArrayList<>();
@@ -153,14 +160,14 @@ public class ProductDTO {
 //
 //        }
 
-        for (int i = 0; i < productThumbnail.size(); i++) {
-            if (productThumbnail.get(i).getFileType().equals("T")) {
-                String thumbFile = productThumbnail.get(0).getStoredFileName();
+            for (int i = 0; i < productThumbnail.size(); i++) {
+                if (productThumbnail.get(i).getFileType().equals("T")) {
+                    String thumbFile = productThumbnail.get(0).getStoredFileName();
 
 //                storedFileNameList.add(getProductThumbnail());
-                this.thumbFileName = thumbFile;
+                    this.thumbFileName = thumbFile;
+                }
             }
-        }
 
 //        for (FileEntity thumb : productThumbnail) {
 //            storedFileNameList.add(thumb.getStoredFileName());
@@ -168,6 +175,7 @@ public class ProductDTO {
 //        String thumbFileName = storedFileNameList.
 
 //        this.storedFileName = storedFileNameList;
+//        }     썸네일-productSale.equals("Y") 일 때만 썸네일 출력하기
     }
 
 }

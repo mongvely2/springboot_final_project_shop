@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!--  위지윅 전용  -->
     <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/translations/ko.js"></script>
 
     <style>
         #write-form {
@@ -103,7 +102,12 @@
         </div>
         <script>
             ClassicEditor
-                .create(document.querySelector('#productContents'))
+                .create(document.querySelector('#productContents'), {
+                language: 'ko'
+            })
+                .then(productContents => {
+                    productContents = productContents;
+                })
                 .catch(error => {
                     console.error(error);
                 });

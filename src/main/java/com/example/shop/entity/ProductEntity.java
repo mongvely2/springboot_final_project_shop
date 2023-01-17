@@ -42,6 +42,9 @@ public class ProductEntity extends BaseEntity {
     @Column(length = 5)
     private int productHits;
 
+    @Column(length = 10)
+    private String productDelively;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
@@ -60,6 +63,7 @@ public class ProductEntity extends BaseEntity {
         productEntity.setProductFileAttached("N");
         productEntity.setProductHits(0);
         productEntity.setCategoryEntity(categoryEntity);
+        productEntity.setProductDelively(productDTO.getProductDelively());
         return productEntity;
     }
 
@@ -74,6 +78,7 @@ public class ProductEntity extends BaseEntity {
         productEntity.setProductFileAttached("Y");
         productEntity.setProductHits(0);
         productEntity.setCategoryEntity(categoryEntity);
+        productEntity.setProductDelively(productDTO.getProductDelively());
         return productEntity;
     }
 

@@ -95,7 +95,7 @@ public class ProductController {
         return "productPages/productList";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
 //    경로상에 있는 숫자를 전달해주는 어노테이션: @PathVariable -> 문자가 있으면 error
     public String findById(@PathVariable Long id,
                            @PageableDefault(page = 1) Pageable pageable,
@@ -105,9 +105,9 @@ public class ProductController {
         ProductDTO productDTO = productService.findById(id);
         System.out.println("productDTO = " + productDTO);
 
-        model.addAttribute("product", productDTO);
+        model.addAttribute("productDTO", productDTO);
         model.addAttribute("page", pageable.getPageNumber());
-        return null;
+        return "productPages/productDetail";
     }
 
 
