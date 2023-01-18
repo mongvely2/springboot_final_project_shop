@@ -2,8 +2,17 @@
 server:
   port: 8082
 
+
+
 # data base 연동 설정
 spring:
+
+  #첨부파일 용량제한 설정(해제)
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db_springboot_shop?serverTimezone=Asia/Seoul&characterEncoding=UTF-8

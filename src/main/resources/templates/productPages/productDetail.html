@@ -162,7 +162,7 @@
 						 </span>
             <span>:</span>
             <span>
-						 	[[${product.productContents]]
+						 	[[${product.productDelively}]]
 						 </span>
         </div>
         <div class="line">
@@ -186,8 +186,8 @@
         							</span>
             </div>
             <div class="button_set">
-                <a class="btn_cart">장바구니 담기</a>
-                <a class="btn_buy">바로구매</a>
+                <a class="btn btn-primary">장바구니 담기</a>
+                <a class="btn btn-primary">바로구매</a>
             </div>
         </div>
     </div>
@@ -196,11 +196,11 @@
 </div>
 <div class="content_middle" th:each="product : ${productDTO}">
     <div class="book_intro">
-
+        [[${product.productContents}]]
     </div>
     <!--    <div class="book_content">-->
-    <div>
-        <img th:src="@{|/upload/${product.storedFileName}}">
+    <div th:each="fileName : ${product.storedFileName}">
+        <img th:src="@{|/upload/${fileName}}">
     </div>
 </div>
 <div class="line">

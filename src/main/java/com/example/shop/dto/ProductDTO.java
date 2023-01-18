@@ -73,8 +73,12 @@ public class ProductDTO {
 //            첨부파일 이름 가져오기
 //              BoardEntity에서 boardFileEntityList 선언해줘서 사용가능함
                     for (FileEntity var : productEntity.getFileEntityList()) {
-                        originalFileNameList.add(var.getOriginalFileName());
-                        storedFileNameList.add(var.getStoredFileName());
+                        if (var.getFileType().equals("D")) {        // fileType == D 만 List에 추가하기 위한 코드
+                            originalFileNameList.add(var.getOriginalFileName());
+                            storedFileNameList.add(var.getStoredFileName());
+                        }
+//                        originalFileNameList.add(var.getOriginalFileName());
+//                        storedFileNameList.add(var.getStoredFileName());
                     }
                     productDTO.setOriginalFileName(originalFileNameList);
                     productDTO.setStoredFileName(storedFileNameList);

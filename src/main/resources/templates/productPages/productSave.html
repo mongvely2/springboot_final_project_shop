@@ -64,7 +64,7 @@
 
         <div class="input-group mb-4">
             <div class="form-floating">
-                <input type="text" name="productPrice" id="productPrice" placeholder="판매가" onblur=""
+                <input type="text" name="productPrice" id="productPrice" placeholder="판매가"
                        class="form-control">
                 <label for="productPrice">판매가</label>
                 <!--                <div id="validation2">-->
@@ -73,7 +73,7 @@
             </div>
 
             <div class="form-floating">
-                <input type="text" name="productStock" id="productStock" placeholder="재고수량" onblur=""
+                <input type="text" name="productStock" id="productStock" placeholder="재고수량"
                        class="form-control">
                 <label for="productStock">재고수량</label>
                 <!--                <div id="validation3">-->
@@ -96,6 +96,15 @@
             <!--            </div>-->
         </div>
 
+        <div class="input-group mb-4">
+            <div class="form-floating">
+                <input type="text" name="productDelively" id="productDelively" placeholder="배송비"
+                       class="form-control">
+                <label for="productDelively">배송비</label>
+            </div>
+        </div>
+
+
         <div class="mb-4">
             <textarea type="text" name="productContents" id="productContents" placeholder="상세내용"
                       onblur="nameCheck()"></textarea>
@@ -103,8 +112,8 @@
         <script>
             ClassicEditor
                 .create(document.querySelector('#productContents'), {
-                language: 'ko'
-            })
+                    language: 'ko'
+                })
                 .then(productContents => {
                     productContents = productContents;
                 })
