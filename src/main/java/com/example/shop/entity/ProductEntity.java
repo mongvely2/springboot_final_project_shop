@@ -52,6 +52,9 @@ public class ProductEntity extends BaseEntity {
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<FileEntity> fileEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CartEntity> cartEntityList = new ArrayList<>();
+
     public static ProductEntity toSaveEntity(ProductDTO productDTO, CategoryEntity categoryEntity) {
         ProductEntity productEntity = new ProductEntity();
         productEntity.setProductName(productDTO.getProductName());

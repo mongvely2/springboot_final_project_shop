@@ -56,14 +56,17 @@ public class MemberController {
 
     @PostMapping("/login")
     public @ResponseBody String login(@ModelAttribute MemberDTO memberDTO,
-                        HttpSession session) throws Exception {
+                                      HttpSession session,
+                                      @RequestParam(value = "redirectURL", defaultValue = "/") String redirectURL) throws Exception {
         MemberDTO memberLogin = memberService.login(memberDTO);
         if (memberLogin != null) {
         session.setAttribute("loginSession", memberLogin);
         session.setAttribute("loginEmail", memberLogin.getMemberEmail());
-            return "Y";
+//        인터셉터에 걸려 로그인한 사용자가 직전에 요청한 페이지로 보내주기 위한 redirect:/직전요청주소
+//        인터셉터에 걸리지 않고 로그인을 한 사용자는 defaultValue에 의해 index 호출
+            return redirectURL;     //"redirect:"+redirectURL;
         } else {
-            return "N";
+            return null;
         }
     }
 
