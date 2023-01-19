@@ -41,6 +41,7 @@ public class MemberController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDTO memberDTO) {
+        System.out.println("memberDTO = " + memberDTO);
         Long savedId = memberService.save(memberDTO);
         if (savedId > 0) {
             return "memberPages/memberLogin";
@@ -62,6 +63,7 @@ public class MemberController {
         if (memberLogin != null) {
         session.setAttribute("loginSession", memberLogin);
         session.setAttribute("loginEmail", memberLogin.getMemberEmail());
+        session.setAttribute("loginId", memberLogin.getId());
 //        인터셉터에 걸려 로그인한 사용자가 직전에 요청한 페이지로 보내주기 위한 redirect:/직전요청주소
 //        인터셉터에 걸리지 않고 로그인을 한 사용자는 defaultValue에 의해 index 호출
             return redirectURL;     //"redirect:"+redirectURL;
