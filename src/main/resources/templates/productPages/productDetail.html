@@ -241,13 +241,15 @@
     // 주문수량 버튼 조작
     let quantity = document.getElementById("quantityInput").value;
     const plusFn = () => {
-        document.getElementById("quantityInput").valueOf(++quantity);
+        // document.getElementById("quantityInput").valueOf(++quantity);
+        document.getElementById("quantityInput").value = String(++quantity);
         // document.getElementById("quantityInput").innerHTML == quantity;
         console.log(quantity);
     }
     const minusFn = () => {
         if (quantity > 1) {
-            document.getElementById("quantityInput").valueOf(--quantity);
+            // document.getElementById("quantityInput").valueOf(--quantity);
+            document.getElementById("quantityInput").value = String(--quantity);
             console.log(quantity);
         } else {
             alert("1개 이상 주문 가능합니다!")

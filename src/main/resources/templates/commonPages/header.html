@@ -1,66 +1,127 @@
 <!DOCTYPE html>
-<!--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>-->
-<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/resources/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-</head>
-<body>
-<header class="p-3 text-bg-dark">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <%--            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">--%>
-            <%--                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>--%>
-            <%--            </a>--%>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <script th:src="@{/js/jquery.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="/member/login" class="nav-link px-2 text-white">로그인</a></li>
-                <li><a href="/board/paging" class="nav-link px-2 text-white">글목록</a></li>
-                <%--                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>--%>
-                <%--                <li><a href="#" class="nav-link px-2 text-white">About</a></li>--%>
-            </ul>
 
-            <form action="/board/search" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <div class="input-group">
-                    <select name="type" class="form-select">
-                        <option value="boardTitle" selected>제목</option>
-                        <option value="boardWriter">작성자</option>
-                    </select>
-                    <input type="search" name="q" class="form-control form-control-dark text-bg-dark"
-                           placeholder="Search..." aria-label="Search">
-                    <button class="btn btn-outline-light"><i class="bi bi-search-heart"></i></button>
+    <style>
+        nav {
+            text-align: center;
+
+        }
+
+        #one {
+            display: inline-block;
+            float: left;
+        }
+
+        #two {
+            display: inline-block;
+            float: right;
+            margin-top: 25px;
+            width: 250px;
+        }
+
+        #three {
+            display: inline-block;
+            width: 500px;
+        }
+
+        #total {
+            text-align: center;
+            padding: 25px;
+        }
+
+        #total2 {
+            text-align: center;
+        }
+
+        #tab {
+            padding: 70px 0 0 0;
+            width: 100%;
+
+        }
+
+        #three input {
+            border: none;
+            outline: none;
+            border-bottom: solid 5px black;
+            width: 425px;
+            justify-content: center;
+        }
+
+        #sForm {
+            vertical-align: top;
+        }
+
+        .line {
+            width: 100%;
+            border-top: 1px solid #c6c6cf;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <body>
+    <header>
+        <div class="container">
+            <div class="container" id="total">
+                <div id="one">
+                    <a href="/">
+                        <img src="/upload/fresheasy_logo.png" width="200px" height="100px">
+                    </a>
                 </div>
-            </form>
-
-            <div class="text-end">
-                <c:if test="${sessionScope.loginEmail == null}">
-                    <button type="button" onclick="login()" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" onclick="memberSave()" class="btn btn-warning">Sign-up</button>
-                </c:if>
-                <c:if test="${sessionScope.loginEmail != null}">
-                    <span>${sessionScope.loginEmail} 님 반갑습니다</span>
-                    <button class="btn btn-warning" onclick="memberLogout()" type="button">logout</button>
-                </c:if>
-
+                <div id="two">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item" th:if="${session.loginSession != null && session.loginSession.memberRole == 0}">
+                            <a href="/member/adminPage" class="nav-link">관리자</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loginSession != null && session.loginSession.memberRole == 1}">
+                            <a href="/member/myPage" class="nav-link">마이페이지</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loginSession != null}">
+                            <a href="/cart/cartList/${member.id}" class="nav-link">장바구니</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loginSession == null}">
+                            <a href="/member/save" class="nav-link">회원가입</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loginSession == null}">
+                            <a href="/member/login" class="nav-link">로그인</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loginSession != null}">
+                            <a href="/member/logout" class="nav-link">로그아웃</a>
+                        </li>
+<!--                        <li class="nav-item" th:if="${session.loginSession != null && session.loginSession.memberRole == 0}">-->
+<!--                            <a href="/sales/upload" class="nav-link">판매등록</a>-->
+<!--                        </li>-->
+                    </ul>
+                </div>
             </div>
         </div>
+    </header>
+
+    <div class="container" id="total2">
+        <div id="three">
+            <form action="/search" role="search" method="get" id="sForm">
+                <input type="search" name="keyword">
+                <button class="btn" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
     </div>
-</header>
-</body>
-<script>
-    const login = () => {
-        location.href = "/member/login"
-    }
 
-    const memberSave = () => {
-        location.href = "/member/save";
-    }
+    <div class="line">
+    </div>
 
-    const memberLogout = () => {
-        location.href = "/member/logout"
-    }
+<!--    <ul class="nav justify-content-center" id="tab">-->
+<!--        <li class="nav-item"><a href="/category/weapon" class="nav-link">무기</a></li>-->
+<!--        <li class="nav-item"><a href="/category/armor" class="nav-link">방어구</a></li>-->
+<!--        <li class="nav-item"><a href="/category/accessory" class="nav-link">장신구</a></li>-->
+<!--    </ul>-->
+    </body>
+</th:block>
+<script th:inline="javascript">
+
 </script>
 </html>

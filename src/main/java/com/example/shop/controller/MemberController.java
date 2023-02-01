@@ -58,8 +58,10 @@ public class MemberController {
     @PostMapping("/login")
     public @ResponseBody String login(@ModelAttribute MemberDTO memberDTO,
                                       HttpSession session,
+                                      Model model,
                                       @RequestParam(value = "redirectURL", defaultValue = "/") String redirectURL) throws Exception {
         MemberDTO memberLogin = memberService.login(memberDTO);
+        model.addAttribute("member", memberLogin);
         if (memberLogin != null) {
         session.setAttribute("loginSession", memberLogin);
         session.setAttribute("loginEmail", memberLogin.getMemberEmail());
@@ -105,6 +107,11 @@ public class MemberController {
         model.addAttribute("endPage", endPage);
 
         return "memberPages/memberListPaging";
+    }
+
+    @GetMapping("/myPage")
+    public String myPage() {
+        return "/memberPages/myPage";
     }
 }
 

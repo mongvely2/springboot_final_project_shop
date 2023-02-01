@@ -2,7 +2,6 @@ package com.example.shop.dto;
 
 import com.example.shop.entity.CategoryEntity;
 import com.example.shop.entity.FileEntity;
-import com.example.shop.entity.MemberEntity;
 import com.example.shop.entity.ProductEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.rtl.min.css}">
+    <style>
+        #adminList {
+            width: 200px;
+        }
+
+    </style>
+
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+<!--  @@님의 마이페이지 현황입니다  -->
+
+<div class="list-group" id="adminList">
+    <a th:href="@{|/cart/cartList/${session.loginSession.id}|}" class="list-group-item list-group-item-action mt-5">장바구니</a>
+<!--    <a th:href="@{/cart/cartList/memberId=${session.loginId}}" th:value="memberId=${session.loginSession.id}" class="list-group-item list-group-item-action mt-5">장바구니</a>-->
+<!--    <a href="/cart/cartList/memberId" th:value="memberId==${session.loginSession.id}" class="list-group-item list-group-item-action mt-5">장바구니</a>-->
+    <a href="" class="list-group-item list-group-item-action">주문내역</a>
+    <a href="" class="list-group-item list-group-item-action">회원정보 수정</a>
+<!--    <a href="" class="list-group-item list-group-item-action"></a>-->
+<!--    <a href="" class="list-group-item list-group-item-action"></a>-->
+</div>
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

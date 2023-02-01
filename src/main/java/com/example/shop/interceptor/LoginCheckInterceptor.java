@@ -19,10 +19,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
                              Object handler) throws IOException {
 //        요청한 주소값을 가져오는 어노테이션 = request
         String requestURL = request.getRequestURI();
-        System.out.println("requestURL_interceptor class = " + requestURL);
 //        메서드 재정의(override)시 리턴타입, 메서드명, 매개변수는 건드릴 수 없기에 session을 따로 선언해줘야함
         HttpSession session = request.getSession();
-        if (session.getAttribute("loginEmail") == null) {
+
+        System.out.println("requestURL_interceptor class = " + requestURL);
+
+//        if (session.getAttribute("loginEmail") == null) {
+        if (session.getAttribute("loginSession") == null) {
 //            로그인이 끝나면 다시 돌아갈 주소: redirectURL+requestURL
             response.sendRedirect("/member/login?redirectURL=" + requestURL);
             return false;

@@ -1,7 +1,6 @@
 package com.example.shop.entity;
 
 import com.example.shop.dto.ProductDTO;
-import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,7 +52,7 @@ public class ProductEntity extends BaseEntity {
     private List<FileEntity> fileEntityList = new ArrayList<>();
 
     @OneToMany(mappedBy = "productEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<CartEntity> cartEntityList = new ArrayList<>();
+    private List<CartProductEntity> cartProductEntityList = new ArrayList<>();
 
     public static ProductEntity toSaveEntity(ProductDTO productDTO, CategoryEntity categoryEntity) {
         ProductEntity productEntity = new ProductEntity();

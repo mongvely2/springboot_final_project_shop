@@ -11,8 +11,5 @@ import lombok.ToString;
 @NoArgsConstructor
 public class CartDTO {
     private Long id;
-    private int cartCount;
-
     private Long memberId;
-    private Long productId;
 }

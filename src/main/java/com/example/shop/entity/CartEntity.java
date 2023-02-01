@@ -1,10 +1,11 @@
 package com.example.shop.entity;
 
-import com.example.shop.dto.CartDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,22 +16,16 @@ public class CartEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 5)
-    private int cartCount;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private ProductEntity productEntity;
+    @OneToMany(mappedBy = "cartEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CartProductEntity> cartProductEntityList = new ArrayList<>();
 
-    public static CartEntity toSaveCartEntity(CartDTO cartDTO, MemberEntity memberEntity, ProductEntity productEntity) {
+    public static CartEntity saveCartEntity(MemberEntity memberEntity) {
         CartEntity cartEntity = new CartEntity();
-        cartEntity.setCartCount(cartDTO.getCartCount());
         cartEntity.setMemberEntity(memberEntity);
-        cartEntity.setProductEntity(productEntity);
         return cartEntity;
     }
 }
