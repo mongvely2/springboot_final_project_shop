@@ -19,9 +19,17 @@ public class CartProductDTO {
     private Long id;
     private int cartCount;
 
-//    private Long memberId;
     private Long cartId;
     private Long productId;
+
+//    productEntity db 정보
+    private String thumbFileName;
+    private String productName;
+    private String productPrice;
+    private String productDelively;
+
+
+
 
     public static CartProductDTO toCartProductDTO(CartProductEntity cartProductEntity) {
         CartProductDTO cartProductDTO = new CartProductDTO();
@@ -29,6 +37,10 @@ public class CartProductDTO {
         cartProductDTO.setCartCount(cartProductEntity.getCartCount());
         cartProductDTO.setCartId(cartProductEntity.getCartEntity().getId());
         cartProductDTO.setProductId(cartProductEntity.getProductEntity().getId());
+        cartProductDTO.setThumbFileName(cartProductEntity.getProductEntity().getFileEntityList().get(0).getStoredFileName());
+        cartProductDTO.setProductName(cartProductEntity.getProductEntity().getProductName());
+        cartProductDTO.setProductPrice(cartProductEntity.getProductEntity().getProductPrice());
+        cartProductDTO.setProductDelively(cartProductEntity.getProductEntity().getProductDelively());
         return cartProductDTO;
     }
 

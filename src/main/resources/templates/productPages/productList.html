@@ -43,6 +43,8 @@
 <body>
 <th:block th:replace="commonPages/header :: header"></th:block>
 
+<p class="text-center fs-3 mt-5">신제품 목록</p>
+
 <ul>
     <li class="wrapper" th:each="product: ${productList}">
         <div class="box">
@@ -114,26 +116,26 @@
             </a>
         </li>
     </ul>
-<!--    <div class="container">-->
-<!--        &lt;!&ndash;            <div th:if="${session.loginSession.memberEmail != null}">&ndash;&gt;-->
-<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        <tr>-->
-<!--            <th th:if="${session.loginSession != null}">-->
-<!--                <a href="/board/save" class="btn btn-primary">글작성</a>-->
-<!--            </th>-->
-<!--            <th>-->
-<!--                <a href="/" class="btn btn-primary">홈으로 이동</a>-->
-<!--            </th>-->
-<!--        </tr>-->
-<!--        &lt;!&ndash;            <div th:if="${session.loginSession.memberEmail != null}">&ndash;&gt;-->
-<!--        &lt;!&ndash;            <a href="/board/save" class="btn btn-primary">글작성</a>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <a href="/" class="btn btn-primary">홈으로 이동</a>&ndash;&gt;-->
-<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        &lt;!&ndash;            <div th:unless="${session.loginSession.memberEmail == null}">&ndash;&gt;-->
-<!--        &lt;!&ndash;                <a href="/" class="btn btn-primary">홈으로 이동</a>&ndash;&gt;-->
-<!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+    <!--    <div class="container">-->
+    <!--        &lt;!&ndash;            <div th:if="${session.loginSession.memberEmail != null}">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+    <!--        <tr>-->
+    <!--            <th th:if="${session.loginSession != null}">-->
+    <!--                <a href="/board/save" class="btn btn-primary">글작성</a>-->
+    <!--            </th>-->
+    <!--            <th>-->
+    <!--                <a href="/" class="btn btn-primary">홈으로 이동</a>-->
+    <!--            </th>-->
+    <!--        </tr>-->
+    <!--        &lt;!&ndash;            <div th:if="${session.loginSession.memberEmail != null}">&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a href="/board/save" class="btn btn-primary">글작성</a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <a href="/" class="btn btn-primary">홈으로 이동</a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            </div>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <div th:unless="${session.loginSession.memberEmail == null}">&ndash;&gt;-->
+    <!--        &lt;!&ndash;                <a href="/" class="btn btn-primary">홈으로 이동</a>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            </div>&ndash;&gt;-->
 
-<!--    </div>-->
+    <!--    </div>-->
 </div>
 
 </body>
