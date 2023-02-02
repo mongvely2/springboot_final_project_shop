@@ -30,7 +30,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final FileRepository fileRepository;
 
-//    public List<CategoryDTO> categorySave(CategoryDTO categoryDTO) {
+    //    public List<CategoryDTO> categorySave(CategoryDTO categoryDTO) {
 //        CategoryEntity categoryEntity = CategoryEntity.toCategorySaveEntity(categoryDTO);
 //        categoryRepository.save(categoryEntity);
 //        List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
@@ -46,7 +46,7 @@ public class ProductService {
     }
 
     public List<CategoryDTO> categoryList() {
-        List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
+        List<CategoryEntity> categoryEntityList = categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         for (CategoryEntity category : categoryEntityList) {
             categoryDTOList.add(CategoryDTO.toCategoryDTO(category));
@@ -64,21 +64,6 @@ public class ProductService {
             productRepository.save(productEntity);
         }
 
-//        if (productDTO.getProductThumbnail() != null) {
-////            첨부파일 있는 경우
-//            ProductEntity productEntity = ProductEntity.toSaveFileEntity(productDTO, categoryEntity);
-//            Long productId = productRepository.save(productEntity).getId();
-//            ProductEntity product = productRepository.findById(productId).get();
-//
-//            MultipartFile productThumbnail = productDTO.getProductThumbnail();
-//            String originalFileName = productThumbnail.getOriginalFilename();
-//            String storedFileName = System.currentTimeMillis() + "_" + originalFileName;
-//            String filePath = "D:\\boot_final_img\\" + storedFileName;
-//            productThumbnail.transferTo(new File(filePath));
-//            FileEntity fileEntity = FileEntity.toSaveThumbnailFile(product, originalFileName, storedFileName);
-//            fileRepository.save(fileEntity);
-//        }
-
         if (productDTO.getProductThumbnail() != null && !productDTO.getProductDetailFile().get(0).isEmpty()) {
 //            첨부파일 있는 경우
             ProductEntity productEntity = ProductEntity.toSaveFileEntity(productDTO, categoryEntity);
@@ -87,13 +72,13 @@ public class ProductService {
 
             if (productDTO.getProductThumbnail() != null) {
 //                썸네일
-            MultipartFile productThumbnail = productDTO.getProductThumbnail();
-            String originalFileName = productThumbnail.getOriginalFilename();
-            String storedFileName = "T_" + System.currentTimeMillis() + "_" + originalFileName;
-            String filePath = "D:\\boot_final_img\\" + storedFileName;
-            productThumbnail.transferTo(new File(filePath));
-            FileEntity fileEntity = FileEntity.toSaveThumbnailFile(product, originalFileName, storedFileName);
-            fileRepository.save(fileEntity);
+                MultipartFile productThumbnail = productDTO.getProductThumbnail();
+                String originalFileName = productThumbnail.getOriginalFilename();
+                String storedFileName = "T_" + System.currentTimeMillis() + "_" + originalFileName;
+                String filePath = "D:\\boot_final_img\\" + storedFileName;
+                productThumbnail.transferTo(new File(filePath));
+                FileEntity fileEntity = FileEntity.toSaveThumbnailFile(product, originalFileName, storedFileName);
+                fileRepository.save(fileEntity);
             }
 
             if (!productDTO.getProductDetailFile().get(0).isEmpty()) {
@@ -105,19 +90,9 @@ public class ProductService {
                     productDetailFile.transferTo(new File(filePath));
                     FileEntity fileEntity = FileEntity.toSaveDetailFile(product, originalFileName, storedFileName);
                     fileRepository.save(fileEntity);
-            }
+                }
 
-        }
-//        if (!productDTO.getProductDetailFile().get(0).isEmpty()) {
-//
-//            for (MultipartFile productDetailFile : productDTO.getProductDetailFile()) {
-//                String originalFileName = productThumbnail.getOriginalFilename();
-//                String storedFileName = System.currentTimeMillis() + "_" + originalFileName;
-//                String filePath = "D:\\boot_final_img\\" + storedFileName;
-//                productThumbnail.transferTo(new File(filePath));
-//                FileEntity fileEntity = FileEntity.toSaveThumbnailFile(product, originalFileName, storedFileName);
-//                fileRepository.save(fileEntity);
-//            }
+            }
         }
     }
 
@@ -134,21 +109,21 @@ public class ProductService {
         Page<ProductDTO> productList = productEntities.map(
                 product -> new ProductDTO
                         (
-                        product.getId(),
-                        product.getProductName(),
-                        product.getProductPrice(),
-                        product.getProductStock(),
-                        product.getProductSale(),
-                        product.getProductContents(),
-                        product.getProductDelete(),
-                        product.getProductFileAttached(),
-                        product.getProductHits(),
-                        product.getCategoryEntity(),
-                        product.getCreatedTime(),
-                        product.getUpdatedTime(),
-                        product.getProductDelively(),
-                        product.getFileEntityList()
-                )
+                                product.getId(),
+                                product.getProductName(),
+                                product.getProductPrice(),
+                                product.getProductStock(),
+                                product.getProductSale(),
+                                product.getProductContents(),
+                                product.getProductDelete(),
+                                product.getProductFileAttached(),
+                                product.getProductHits(),
+                                product.getCategoryEntity(),
+                                product.getCreatedTime(),
+                                product.getUpdatedTime(),
+                                product.getProductDelively(),
+                                product.getFileEntityList()
+                        )
         );
         return productList;
     }

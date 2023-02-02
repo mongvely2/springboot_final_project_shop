@@ -1,5 +1,6 @@
 package com.example.shop.service;
 
+import com.example.shop.dto.CartDTO;
 import com.example.shop.dto.CartProductDTO;
 import com.example.shop.entity.CartEntity;
 import com.example.shop.entity.CartProductEntity;
@@ -35,27 +36,20 @@ public class CartService {
             CartEntity cartEntity1 = CartEntity.saveCartEntity(memberEntity);
             cartRepository.save(cartEntity1);
 
-//            CartEntity cart = cartEntity.get();
             CartEntity cart = cartRepository.findByMemberEntity(memberEntity).get();
-//            CartEntity cart = cartRepository.findByMemberEntity(memberEntity).get();
-//            CartEntity cart = cartRepository.findByMemberId(memberId);
-//            CartEntity cart = cartRepository.findByMemberEntity(memberEntity).get();
             ProductEntity productEntity = productRepository.findById(productId).get();
             CartProductEntity cartProductEntity = CartProductEntity.saveCartProduct(productEntity, cart, cartCount);
             cartProductRepository.save(cartProductEntity);
             return 1;
 
-//        } else if (cartEntity.isPresent()) {    // 장바구니 중복상품 체크
         } else {    // 장바구니 중복상품 체크
+//            카트가 존재하기에 기존 정보에서 entity 정보 불러와야 함
             CartEntity cart = cartEntity.get();
-//            CartEntity cart = cartRepository.findByMemberEntity(memberEntity).get();
 
             ProductEntity productEntity = productRepository.findById(productId).get();
             List<CartProductEntity> cartProductEntityList = cartProductRepository.findAllByCartEntityAndProductEntity(cart, productEntity);
 
             if (cartProductEntityList.isEmpty()) {      // 중복이 아닌 경우
-//                CartEntity cart = cartRepository.findByMemberId(memberId);
-//                ProductEntity productEntity = productRepository.findById(productId).get();
                 CartProductEntity cartProductEntity = CartProductEntity.saveCartProduct(productEntity, cart, cartCount);
                 cartProductRepository.save(cartProductEntity);
                 return 1;
@@ -68,45 +62,42 @@ public class CartService {
 
     }
 
-
-//    ------------------------------------------------------
-
-    //    장바구니 추가
-//    public int addCart(CartProductDTO cartDTO) {
-//        System.out.println("cartDTO service = " + cartDTO);
-////        쿼리 커스텀으로 진행
-//        Long memberId = cartDTO.getMemberId();
-//        Long productId = cartDTO.getProductId();
-//        CartProductEntity cart = cartRepository.findByCart(memberId, productId);
-//        System.out.println("cart = " + cart);
+//    public List<CartItemDTO> findAll(String userId) {
+//        MemberEntity memberEntity = memberRepository.findByUserId(userId).get();
+//        Optional<CartEntity>cartEntity = cartRepository.findByMemberEntity(memberEntity);
+//        if (cartEntity.isPresent()) {
+//            CartEntity cartEntity1 = cartEntity.get();
+//            List<CartItemEntity>cartItemEntityList = cartItemRepository.findByCartEntity(cartEntity1);
+//            List<CartItemDTO>cartItemDTOList = new ArrayList<>();
+//            for (CartItemEntity cartItemEntity : cartItemEntityList) {
+//                CartItemDTO cartItemDTO = new CartItemDTO();
+//                cartItemDTO.setId(cartItemEntity.getId());
+//                cartItemDTO.setCartCount(cartItemEntity.getCartCount());
+//                cartItemDTO.setItemName(cartItemEntity.getItemEntity().getItemName());
+//                cartItemDTO.setItemPrice(cartItemEntity.getItemEntity().getItemPrice());
+//                cartItemDTO.setItemImage(cartItemEntity.getItemEntity().getItemFileEntityList().get(0).getStoredFileNameItem());
+//                cartItemDTOList.add(cartItemDTO);
+//            }
+//            return cartItemDTOList;
 //
-//        if (cart != null) {
-////        이미 추가된 장바구니 중복여부 확인(중복일 경우 2반환)
-//            return 2;
-//        } else {
-////        중복여부 아닐 경우 장바구니 DB 저장 후 1반환
-//            MemberEntity memberEntity = memberRepository.findById(memberId).get();
-//            ProductEntity productEntity = productRepository.findById(productId).get();
-//            CartProductEntity cartEntity = CartProductEntity.toSaveCartEntity(cartDTO, memberEntity, productEntity);
-//            cartRepository.save(cartEntity);
-//            return 1;
+//        }else {
+//            return null;
 //        }
-//    }
-//
-//    @Transactional
-//    public List<CartProductDTO> findAll(Long memberId) {
-////        memberId로 meberEntity 불러오기
-//        MemberEntity memberEntity = memberRepository.findById(memberId).get();
-//        List<ProductEntity> productEntityList = productRepository.findAll();
-////        가져온 memberEntity 값을 넣어 해당되는 memberId의 "cartEntity" 목록 불러오기
-//        List<CartProductEntity> cartEntityList =
-//                cartRepository.findAllByMemberEntityOrderByIdDesc(memberEntity);
-////        cartEntity 를 DTO 로  반복문으로 넣어주기 -> controller 넘기기 위해
-//        List<CartProductDTO> cartDTOList = new ArrayList<>();
-//        for (CartProductEntity var : cartEntityList) {
-//            cartDTOList.add(CartProductDTO.cartDTO(var, memberEntity, productEntityList));
-//        }
-//        return cartDTOList;
-//
-//    }
+
+    @Transactional
+    public List<CartProductDTO> findAll(Long memberId) {
+        MemberEntity memberEntity = memberRepository.findById(memberId).get();
+        CartEntity cartEntity = cartRepository.findByMemberEntity(memberEntity).get();
+        List<CartProductEntity> cartProductEntityList =
+                cartProductRepository.findAllByCartEntityOrderByIdDesc(cartEntity);
+
+        List<CartProductDTO> cartProductDTOList = new ArrayList<>();
+        for (CartProductEntity var : cartProductEntityList) {
+            cartProductDTOList.add(CartProductDTO.toCartProductDTO(var));
+        }
+        return cartProductDTOList;
+    }
 }
+
+
+

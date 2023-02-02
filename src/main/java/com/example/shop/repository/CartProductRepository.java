@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface CartProductRepository extends JpaRepository<CartProductEntity, Long> {
     List<CartProductEntity> findAllByCartEntityAndProductEntity(CartEntity cart, ProductEntity productEntity);
 
+    List<CartProductEntity> findAllByCartEntityOrderByIdDesc(CartEntity cartEntity);
+
 
 //    @Query(value = "select c from CartProductEntity c where c.memberEntity.id = :member and c.productEntity.id = :product")
 //    CartProductEntity findByCart(@Param("member") Long memberId,

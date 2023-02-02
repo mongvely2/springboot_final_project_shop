@@ -1,9 +1,15 @@
 package com.example.shop.dto;
 
+import com.example.shop.entity.CartEntity;
+import com.example.shop.entity.CartProductEntity;
+import com.example.shop.entity.ProductEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,17 +23,14 @@ public class CartProductDTO {
     private Long cartId;
     private Long productId;
 
-//    public static CartProductDTO cartDTO(CartEntity cartEntity, MemberEntity memberEntity, List<CartProductEntity> productEntityList) {
-//        CartProductDTO cartDTO = new CartProductDTO();
-//        cartDTO.setId(cartEntity.getId());
-//        cartDTO.setCartCount(cartEntity.getCartCount());
-//        cartDTO.setMemberId(memberEntity.getId());
-//        for (CartProductEntity var : productEntityList) {
-//            cartDTO.setProductId(var.getId());
-//        }
-//        return cartDTO;
-//    }
-
+    public static CartProductDTO toCartProductDTO(CartProductEntity cartProductEntity) {
+        CartProductDTO cartProductDTO = new CartProductDTO();
+        cartProductDTO.setId(cartProductEntity.getId());
+        cartProductDTO.setCartCount(cartProductEntity.getCartCount());
+        cartProductDTO.setCartId(cartProductEntity.getCartEntity().getId());
+        cartProductDTO.setProductId(cartProductEntity.getProductEntity().getId());
+        return cartProductDTO;
+    }
 
 
 }
